@@ -67,9 +67,7 @@ public class slopeMap {
     }
 
 
-    public slopeMap (char[][] Map){
-        this.Map = Map;
-    }
+    public slopeMap (char[][] Map) { this.Map = Map; }
 
     public static void main(String[] args) {
 

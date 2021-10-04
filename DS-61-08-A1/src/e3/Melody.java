@@ -1,4 +1,5 @@
 package e3;
+import javax.swing.*;
 import java.util.*;
 
 public class Melody {
@@ -98,9 +99,45 @@ public class Melody {
      * @param o The melody to be compared with the current melody.
      * @return true if the melodies are equals , false otherwise.
      */
-  //  @Override
-  //  public boolean equals(Melody o) {}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o ){return true;}
+        if (o == null){return false;}
+        if (this.getClass() != o.getClass()){return false;}
 
+        if(this.Note != ((Melody)o).Note){return false;}
+        if(this.time != ((Melody)o).time){return false;}
+
+
+        if((((((Melody) o).Note == Notes.MI)&&(this.Note == Notes.FA))||((((Melody) o).Note == Notes.FA)&&(this.Note == Notes.MI))||
+              ((((Melody) o).Note == Notes.SI)&&(this.Note == Notes.DO))||((((Melody)o).Note == Notes.DO)&&(this.Note== Notes.SI)))){
+
+            if(((((Melody)o).Accidental == Accidentals.NATURAL)^this.Accidental == Accidentals.NATURAL)){
+
+                if(((((Melody)o).Accidental == Accidentals.SHARP)&&(((Melody)o).Note)== Notes.MI)||
+                        ((this.Accidental == Accidentals. SHARP)&&(this.Note)==Notes.MI))
+                    return true;
+                if(((((Melody)o).Accidental == Accidentals.SHARP)&&(((Melody)o).Note)== Notes.SI)||
+                        ((this.Accidental == Accidentals. SHARP)&&(this.Note)==Notes.SI))
+                    return true;
+                if(((((Melody)o).Accidental == Accidentals.FLAT)&&(((Melody)o).Note)== Notes.DO)||
+                        ((this.Accidental == Accidentals. FLAT)&&(this.Note)==Notes.DO))
+                    return true;
+                if(((((Melody)o).Accidental == Accidentals.FLAT)&&(((Melody)o).Note)== Notes.FA)||
+                        ((this.Accidental == Accidentals. FLAT)&&(this.Note)==Notes.FA))
+                    return true;
+            }
+        }else{
+            if (((((Melody) o).Accidental == Accidentals.FLAT) && (this.Accidental == Accidentals.SHARP)) &&
+                    ((((Melody) o).Note.ordinal() - this.Note.ordinal()) == 1))
+                return true;
+
+            if (((((Melody) o).Accidental == Accidentals.SHARP) && (this.Accidental == Accidentals.FLAT)) &&
+                    ((((Melody) o).Note.ordinal() - this.Note.ordinal()) == -1))
+                return true;
+        }
+        return false;
+    }
 
     /**
      * Returns an integer that is a hash code representation of the melody.
@@ -109,7 +146,9 @@ public class Melody {
      * @return The hash code of this melody.
      */
     @Override
-    public int hashCode () { /* ... */ }
+    public int hashCode () {
+        return Objects.hash(Note,Accidental, time);
+    }
 
 
     /**
@@ -119,21 +158,27 @@ public class Melody {
     @Override
     public String toString () {
 
+        int i = 1;
         StringBuilder Melody_String = new StringBuilder();
 
         for (Melody melody : list) {
             Melody_String.append(melody.Note);
-        }
+            switch (melody.Accidental) {
+                case FLAT -> Melody_String.append("b");
+                case SHARP -> Melody_String.append("#");
+                default -> {}
+            }
+            Melody_String.append("(");
+            Melody_String.append(melody.time);
 
+            if(i< list.size()){ Melody_String.append(") ");}
+            else {Melody_String.append(")");}
+            i++;
+        }
         return Melody_String.toString();
     }
 
 
 
-    public static void main(String args[]){
-    }
-
-
-
-
+    public static void main(String args[]){}
 }

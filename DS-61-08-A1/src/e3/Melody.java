@@ -153,7 +153,7 @@ public class Melody {
      */
     @Override
     public int hashCode () {
-
+        return 0;
     }
 
 

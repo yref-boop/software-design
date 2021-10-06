@@ -105,38 +105,44 @@ public class Melody {
         if (o == null){return false;}
         if (this.getClass() != o.getClass()){return false;}
 
-        if(this.Note != ((Melody)o).Note){return false;}
-        if(this.time != ((Melody)o).time){return false;}
+        for (int i = 0; i< list.size(); i++){
 
+            Melody o_mel = ((Melody) o).list.get(i);
+            Melody cur_mel = list.get(i);
 
-        if((((((Melody) o).Note == Notes.MI)&&(this.Note == Notes.FA))||((((Melody) o).Note == Notes.FA)&&(this.Note == Notes.MI))||
-              ((((Melody) o).Note == Notes.SI)&&(this.Note == Notes.DO))||((((Melody)o).Note == Notes.DO)&&(this.Note== Notes.SI)))){
+            if(cur_mel.Note == null){return false;}
+            if(o_mel.Note == null){return false;}
+            if(cur_mel.Accidental == null){return false;}
+            if(o_mel.Accidental == null){return false;}
+            if(cur_mel.time <= 0){return false;}
+            if(o_mel.time <= 0){return false;}
+            if(cur_mel.time != o_mel.time){return false;}
 
-            if(((((Melody)o).Accidental == Accidentals.NATURAL)^this.Accidental == Accidentals.NATURAL)){
+            if((cur_mel.time == o_mel.time)&&(cur_mel.Accidental == o_mel.Accidental)&&(cur_mel.Note==o_mel.Note)){continue;}
 
-                if(((((Melody)o).Accidental == Accidentals.SHARP)&&(((Melody)o).Note)== Notes.MI)||
-                        ((this.Accidental == Accidentals. SHARP)&&(this.Note)==Notes.MI))
-                    return true;
-                if(((((Melody)o).Accidental == Accidentals.SHARP)&&(((Melody)o).Note)== Notes.SI)||
-                        ((this.Accidental == Accidentals. SHARP)&&(this.Note)==Notes.SI))
-                    return true;
-                if(((((Melody)o).Accidental == Accidentals.FLAT)&&(((Melody)o).Note)== Notes.DO)||
-                        ((this.Accidental == Accidentals. FLAT)&&(this.Note)==Notes.DO))
-                    return true;
-                if(((((Melody)o).Accidental == Accidentals.FLAT)&&(((Melody)o).Note)== Notes.FA)||
-                        ((this.Accidental == Accidentals. FLAT)&&(this.Note)==Notes.FA))
-                    return true;
-            }
-        }else{
-            if (((((Melody) o).Accidental == Accidentals.FLAT) && (this.Accidental == Accidentals.SHARP)) &&
-                    ((((Melody) o).Note.ordinal() - this.Note.ordinal()) == 1))
-                return true;
+            if((((o_mel.Note == Notes.MI)&&(cur_mel.Note == Notes.FA))||((o_mel.Note == Notes.FA)&&(cur_mel.Note == Notes.MI))||
+                ((o_mel.Note == Notes.SI)&&(cur_mel.Note == Notes.DO))||((o_mel.Note == Notes.DO)&&(cur_mel.Note== Notes.SI)))){
 
-            if (((((Melody) o).Accidental == Accidentals.SHARP) && (this.Accidental == Accidentals.FLAT)) &&
-                    ((((Melody) o).Note.ordinal() - this.Note.ordinal()) == -1))
-                return true;
+                    if((((o_mel.Accidental != Accidentals.SHARP)&&(o_mel.Note)== Notes.MI)||
+                            ((cur_mel.Accidental != Accidentals. SHARP)&&(cur_mel.Note)==Notes.MI))&&
+                            ((((o_mel.Accidental != Accidentals.FLAT)&&(o_mel.Note)== Notes.FA)||
+                            ((cur_mel.Accidental != Accidentals. FLAT)&&(cur_mel.Note)==Notes.FA))))
+                         return false;
+
+                    if((((o_mel.Accidental != Accidentals.SHARP)&&(o_mel.Note)== Notes.SI)||
+                            ((cur_mel.Accidental != Accidentals. SHARP)&&(cur_mel.Note)==Notes.SI))&&
+                            (((o_mel.Accidental != Accidentals.FLAT)&&(o_mel.Note)== Notes.DO)||
+                            ((cur_mel.Accidental != Accidentals. FLAT)&&(cur_mel.Note)==Notes.DO)))
+                        return false;
+
+            }else {
+                    if (((o_mel.Accidental != Accidentals.FLAT) || (cur_mel.Accidental != Accidentals.SHARP)) &&
+                            ((o_mel.Accidental != Accidentals.SHARP) || (cur_mel.Accidental != Accidentals.FLAT)))
+                        return false;
+
+             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -147,7 +153,7 @@ public class Melody {
      */
     @Override
     public int hashCode () {
-        return Objects.hash(Note,Accidental, time);
+
     }
 
 

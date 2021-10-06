@@ -40,6 +40,8 @@ public class Melody {
      * or the time are not valid values.
      */
     public void addNote(Notes note, Accidentals accidental, float time) {
+        if((note == null)||(accidental == null)||(time <= 0))
+            throw new IllegalArgumentException("not valid parameterst");
         list.add(new Melody(note, accidental, time));
     }
 
@@ -50,21 +52,33 @@ public class Melody {
      * @return The note on index.
      * @throws IllegalArgumentException if the index is not a valid position.
      */
-    public Notes getNote(int index) {return(list.get(index)).Note;}
+    public Notes getNote(int index) {
+        if(index > list.size()-1)
+            throw new IllegalArgumentException("index position not valid");
+        return(list.get(index)).Note;
+    }
     /**
      * Returns the accidental of the note on the given position
      * @param index The position of the accidental to get.
      * @return The accidental on index.
      * @throws IllegalArgumentException if the index is not a valid position.
      */
-    public Accidentals getAccidental(int index) {return(list.get(index)).Accidental;}
+    public Accidentals getAccidental(int index) {
+        if(index > list.size())
+            throw new IllegalArgumentException("index position not valid");
+        return(list.get(index)).Accidental;
+    }
     /**
      * Returns the duration of the note on the given position
      * @param index The position of the time to get.
      * @return The time on index.
      * @throws IllegalArgumentException if the index is not a valid position.
      */
-    public float getTime(int index) {return(list.get(index)).time;}
+    public float getTime(int index) {
+        if(index > list.size())
+            throw new IllegalArgumentException("index position not valid");
+        return(list.get(index)).time;
+    }
     /**
      * Returns the number of notes in this melody.
      * @return The number of notes in this melody.

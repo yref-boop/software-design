@@ -1,6 +1,12 @@
 package e1;
 
-public class School {
+//Base class
 
-
+public class School
+{
+    public static void main(String[] args)
+    {
+        Member member = new Member();
+        member.getReward();
+    }
 }

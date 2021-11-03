@@ -1,4 +1,5 @@
 package e2;
 
-public interface Comparator {
+public interface Comparator<T> {
+
 }

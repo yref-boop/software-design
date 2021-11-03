@@ -4,7 +4,6 @@ public class Member {
 
     public String Name;
     public String Surname;
-    //public int Age;
     public School.Data Data;
     public School.Category Category;
     public int Horcruxes;

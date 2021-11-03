@@ -20,6 +20,8 @@ class Slopes {
             throw new IllegalArgumentException("The movement of the skier is not valid");
 
         pos[0] = pos[1] = trees = 0;
+
+
     }
 
     public static void CollisionDetected(char[][] slopeMap) {

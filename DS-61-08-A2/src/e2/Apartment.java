@@ -178,7 +178,6 @@ class Manager{
         apartments.sort(new FullPriceComparator());
         apartments.sort(new SizeComparator());
         apartments.sort(new PosCodeComparator());
-
     }
 
 }

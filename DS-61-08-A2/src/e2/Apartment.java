@@ -1,7 +1,21 @@
 package e2;
 import java.util.*;
 
-    class Comparing implements Comparator<Apartment>{
+class Comparing {
+    static Comparator<Apartment> BasePriceComparator = new Comparator<Apartment>(){
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getBase_price();
+            int code2 = o2.getBase_price();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    };
+    static Comparator<Apartment> RentCodeComparator = new Comparator<Apartment>(){
+        @Override
         public int compare(Apartment o1, Apartment o2) {
             int code1 = o1.getRent_code();
             int code2 = o2.getRent_code();
@@ -10,6 +24,58 @@ import java.util.*;
                 return (code1 - code2);
             }
             return 0;
+        }
+    };
+    static Comparator<Apartment> FullPriceComparator = new Comparator<Apartment>(){
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getFull_price();
+            int code2 = o2.getFull_price();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    };
+    static Comparator<Apartment> SizeComparator = new Comparator<Apartment>(){
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getSize();
+            int code2 = o2.getSize();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    };
+    static Comparator<Apartment> PosCodeComparator = new Comparator<Apartment>(){
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getPos_code();
+            int code2 = o2.getPos_code();
+
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    };
+}
+
+    class GenericComparing<T> {
+        private T value;
+
+        public T getValue() {
+            return value;
+        }
+
+        public void setValue(T value) {
+            this.value = value;
+        }
+        public GenericComparing (T value){
+            this.value = value;
         }
     }
 
@@ -26,6 +92,8 @@ import java.util.*;
             return 0;
         }
     }
+
+
 
     class RentCodeComparator implements Comparator<Apartment> {
 
@@ -106,7 +174,6 @@ class Apartment {
         size = sqrmt;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -163,23 +230,39 @@ class Manager{
     public static void main (String[] args){
 
         //create list.
-        List<Apartment> apartments = new ArrayList<>(Arrays.asList(
+        ArrayList<Apartment> apartments = new ArrayList<>(Arrays.asList(
                 new Apartment(0,100,1,7,9,222),
                 new Apartment(1,200,4,0,7,234),
                 new Apartment(2,400,3,2,3,9),
                 new Apartment(3,300,2,1,32,23908)
         ));
 
-        //Comparator instance, null by default
+        //criterion of comparison (an instance of what is known as a comparator)
         //Comparing comparator = null;
 
-        apartments.sort(new BasePriceComparator());
+        //this is (?????????) (trying to use generics to implement the criterion of comparisong)
+        var c_base = new GenericComparing<BasePriceComparator>(new BasePriceComparator());
+        var r_code = new GenericComparing<RentCodeComparator>(new RentCodeComparator());
+        var f_price = new GenericComparing<FullPriceComparator>(new FullPriceComparator());
+        var size = new GenericComparing<SizeComparator>(new SizeComparator());
+        var pos_code = new GenericComparing<PosCodeComparator>(new PosCodeComparator());
+
+
+        //using the class comparing, using Collections.sort
+        Collections.sort(apartments, Comparing.BasePriceComparator);
+        Collections.sort(apartments, Comparing.RentCodeComparator);
+        Collections.sort(apartments, Comparing.FullPriceComparator);
+        Collections.sort(apartments, Comparing.SizeComparator);
+        Collections.sort(apartments, Comparing.PosCodeComparator);
+
+
+
+        //using individual classes, using List.sort
         apartments.sort(new RentCodeComparator());
         apartments.sort(new FullPriceComparator());
         apartments.sort(new SizeComparator());
         apartments.sort(new PosCodeComparator());
     }
-
 }
 
 

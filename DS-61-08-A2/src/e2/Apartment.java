@@ -1,89 +1,186 @@
 package e2;
+import java.util.*;
 
-//ad: reference number, price: base price+pacrkong space (optional) post code (etc)
-//equals and hash code disregaard reference number
-//referene number: natural order of comparison
+    class Comparing implements Comparator<Apartment>{
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getRent_code();
+            int code2 = o2.getRent_code();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
 
-//manager classs: two attributes: list of appartments and criterion of comparison (instance of Comparator)
-//(starts null) must be a way of assingn a new value to comparator and another for resorting the apartments
+    class BasePriceComparator implements Comparator<Apartment> {
 
-//comparator classes of your own: total price, base, two other
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getBase_price();
+            int code2 = o2.getBase_price();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
 
-//repeat as wanted
+    class RentCodeComparator implements Comparator<Apartment> {
 
-//ABSTRACT METHODS:
-//comparable includes method compareTo (T o ), compares object with specified onkect according to "natural order"
-//negative: less, 0 =, + >
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getRent_code();
+            int code2 = o2.getRent_code();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
 
-//comparator: similar to the abobe method compaes pair of object
+    class FullPriceComparator implements Comparator<Apartment> {
 
-//collections :
-//1: pass a list that implement comparable and sorts the list according to antural
-//q: adds a Comparator as an argumwnt and sorts accordign to that
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getFull_price();
+            int code2 = o2.getFull_price();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
+
+    class SizeComparator implements Comparator<Apartment> {
+
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getSize();
+            int code2 = o2.getSize();
+            //integers take value 0 if not initialized()
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
+
+    class PosCodeComparator implements Comparator<Apartment> {
+
+        @Override
+        public int compare(Apartment o1, Apartment o2) {
+            int code1 = o1.getPos_code();
+            int code2 = o2.getPos_code();
+
+            if (code1 != code2) {
+                return (code1 - code2);
+            }
+            return 0;
+        }
+    }
 
 
-public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
+class Apartment {
     //attributes:
-    public int rent_code;
-    public int base_price;
-    public int parking_spaces;
-    public int pos_code;
-    public int parking_price;
-    public int full_price;
+    private int rent_code;
+    private int base_price;
+    private int parking_spaces;
+    private int pos_code;
+    private int parking_price;
+    private int full_price;
+    private int size;
 
-    //constructors:
-    public Apartment(int rent, int base, int parking, int pos, int p_price) {
+
+    //constructor:
+    public Apartment(int rent, int base, int parking, int pos, int p_price, int sqrmt) {
         rent_code = rent;
         base_price = base;
         parking_spaces = parking;
         parking_price = p_price;
         pos_code = pos;
-        full_price = rent + p_price*parking;
+        full_price = rent + p_price * parking;
+        size = sqrmt;
     }
 
-    //methods:
 
     @Override
-    public int compareTo(Apartment o){
-        int first = this.getRent_code();
-        int second = o.getRent_code();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
 
-        if (first < second) return -1;
-        if (second < first) return 1;
-        else return 0;
+        return (this.base_price == ((Apartment) o).base_price) && (this.parking_spaces == ((Apartment) o).parking_spaces) &&
+                (this.pos_code == ((Apartment) o).pos_code) && (this.parking_price == ((Apartment) o).parking_price) &&
+                (this.size == ((Apartment) o).size);
     }
+
+
+    @Override
+    public int hashCode() {
+        int hash = 1;
+        hash = hash + 31 * this.pos_code;
+        hash = hash + 31 * this.size;
+        hash = hash + 31 * this.base_price;
+        hash = hash + 31 * this.parking_spaces;
+        hash = hash + 31 * this.parking_price;
+        hash = hash + 31 * this.full_price;
+        return hash;
+    }
+
 
     //getters:
-    public int getRent_code() {
-        return rent_code;
-    }
-    public int getBase_price() {
-        return base_price;
-    }
-    public int getParking_spaces() {
-        return parking_spaces;
-    }
-    public int getPos_code() {
-        return pos_code;
-    }
-    public int getFull_price() {
-        return full_price;
-    }
+
+    public int getRent_code() {return rent_code;}
+    public int getBase_price() {return base_price;}
+    public int getParking_spaces() {return parking_spaces;}
+    public int getPos_code() {return pos_code;}
+    public int getFull_price() {return full_price;}
+    public int getSize() {return size;}
+
 
     //setters:
-    public void setRent_code(int rent){
-        this.rent_code = rent;
-    }
-    public void setBase_price(int base_price) {
-        this.base_price = base_price;
-    }
-    public void setParking_spaces(int parking_spaces) {
-        this.parking_spaces = parking_spaces;
-    }
-    public void setPos_code(int pos_code) {
-        this.pos_code = pos_code;
-    }
-    public void setFull_price(int full_price) {
-        this.full_price = full_price;
-    }
+    public void setRent_code(int rent) {this.rent_code = rent;}
+    public void setBase_price(int base_price) {this.base_price = base_price;}
+    public void setParking_spaces(int parking_spaces) {this.parking_spaces = parking_spaces;}
+    public void setPos_code(int pos_code) {this.pos_code = pos_code;}
+    public void setFull_price(int full_price) {this.full_price = full_price;}
+    public void setSize(int size) {this.size = size;}
+
+
 }
+
+class Manager{
+    public static void main (String[] args){
+
+        //create list.
+        List<Apartment> apartments = new ArrayList<>(Arrays.asList(
+                new Apartment(0,100,1,7,9,222),
+                new Apartment(1,200,4,0,7,234),
+                new Apartment(2,400,3,2,3,9),
+                new Apartment(3,300,2,1,32,23908)
+        ));
+
+        //Comparator instance, null by default
+        //Comparing comparator = null;
+
+        apartments.sort(new BasePriceComparator());
+        apartments.sort(new RentCodeComparator());
+        apartments.sort(new FullPriceComparator());
+        apartments.sort(new SizeComparator());
+        apartments.sort(new PosCodeComparator());
+
+    }
+
+}
+
+

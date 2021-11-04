@@ -21,14 +21,6 @@ package e2;
 //1: pass a list that implement comparable and sorts the list according to antural
 //q: adds a Comparator as an argumwnt and sorts accordign to that
 
-interface Comparable<T>{
-    public int compareTo(T o);
-}
-
-interface Comparator<T>{
-    public int compare(T o1, T o2);
-}
-
 
 public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
     //attributes:
@@ -36,13 +28,17 @@ public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
     public int base_price;
     public int parking_spaces;
     public int pos_code;
+    public int parking_price;
+    public int full_price;
 
     //constructors:
-    public Apartment(int rent, int base, int parking, int pos) {
+    public Apartment(int rent, int base, int parking, int pos, int p_price) {
         rent_code = rent;
         base_price = base;
         parking_spaces = parking;
+        parking_price = p_price;
         pos_code = pos;
+        full_price = rent + p_price*parking;
     }
 
     //methods:
@@ -57,23 +53,6 @@ public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
         else return 0;
     }
 
-    @Override
-    public int compare(Apartment o1, Apartment o2){
-        int code1= o1.getRent_code();
-        int code2= o2.getRent_code();
-        //integers take value 0 if not initialized()
-        if (code1 == 0) {
-            return code2 == 0 ? 0 : 1;
-        }
-        if (code2 == 0) {
-            return -1;
-        }
-        return o1.compareTo(o2);
-    }
-
-    //[].compareTo([])
-
-
     //getters:
     public int getRent_code() {
         return rent_code;
@@ -86,6 +65,9 @@ public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
     }
     public int getPos_code() {
         return pos_code;
+    }
+    public int getFull_price() {
+        return full_price;
     }
 
     //setters:
@@ -101,5 +83,7 @@ public class Apartment implements Comparator<Apartment>, Comparable<Apartment> {
     public void setPos_code(int pos_code) {
         this.pos_code = pos_code;
     }
-
+    public void setFull_price(int full_price) {
+        this.full_price = full_price;
+    }
 }

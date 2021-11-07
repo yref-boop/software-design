@@ -10,9 +10,7 @@ class SchoolTest extends School {
 
     @BeforeEach
     void Clean () {
-        for (int i = 0; i < last; i++) {
-            Members[i] = null;
-        }
+        for (int i = 0; i < last; i++) { Members[i] = null; }
         last = 0;
     }
 

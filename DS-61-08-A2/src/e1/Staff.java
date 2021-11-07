@@ -1,14 +1,15 @@
 package e1;
 
-@SuppressWarnings({"rawtypes", "unused"})
-public class Staff extends Member {
+@SuppressWarnings("unused")
 
-    public enum Subject {Defence, Transfiguration, Potions, Herbology, History}
+public class Staff extends Member<Void> {
 
-    public void reward(Member mem) {
+    enum Subject {Defence, Transfiguration, Potions, Herbology, History}
+
+    <DATA> void reward(Member<DATA> mem) {
         if (mem.category == Category.Teacher) {
             mem.Reward = mem.Horcruxes * 50;
-            if (mem.Data == Subject.Defence)
+            if (mem.getData() == Subject.Defence)
                 mem.Reward *= 0.75;
         }
         if (mem.category == Category.Gamekeeper) mem.Reward = mem.Horcruxes * 75;

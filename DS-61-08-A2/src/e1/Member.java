@@ -1,24 +1,26 @@
 package e1;
 
-@SuppressWarnings("rawtypes")
-public class Member<Data> {
+public class Member<DATA> {
 
-    public enum Category {Student, Ghost, Teacher, Gamekeeper, Caretaker}
+    public DATA getData() { return Data; }
+    public void setData(DATA data) { Data = data; }
 
-    public String Name;
-    public String Surname;
+    enum Category {Student, Ghost, Teacher, Gamekeeper, Caretaker}
+
+    private String Name;
+    private String Surname;
     public int Horcruxes;
     public double Reward;
     public Category category;
-    public Data Data;
+    private DATA Data;
 
 
-    public static <data> Member mewMember(String name, String surname, Category category, int horcruxes, data d, Member mem) {
+    static <DATA> Member<DATA> mewMember(String name, String surname, Category category, int horcruxes, DATA d, Member<DATA> mem) {
         mem.Name = name;
         mem.Surname = surname;
         mem.category = category;
         mem.Horcruxes = horcruxes;
-        mem.Data = d;
+        mem.setData(d);
 
         switch (category) {
             case Student, Ghost -> {
@@ -33,19 +35,16 @@ public class Member<Data> {
         return mem;
     }
 
-    public String name() { return Name; }
+    String name() { return Name; }
+    String surname() { return Surname; }
+    int horcruxes() { return Horcruxes; }
+    double getReward() { return Reward; }
 
-    public String surname() { return Surname; }
-
-    public String category() {
+    String category() {
         switch (category) {
-            case Student, Ghost, Teacher -> { return category + " of " + Data + " "; }
+            case Student, Ghost, Teacher -> { return category + " of " + getData() + " "; }
             case Gamekeeper, Caretaker -> { return category + " "; }
             default -> { return "[error]"; }
         }
     }
-
-    public int horcruxes() { return Horcruxes; }
-
-    public double getReward() { return Reward; }
 }

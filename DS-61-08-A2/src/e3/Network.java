@@ -1,13 +1,12 @@
 package e3;
 import java.util.List;
 
-@SuppressWarnings("unused")
-
 public class Network {
 
-    NetworkManager<String> NetworkType;
-    public Network(NetworkManager<String> manager) { NetworkType = manager; }
+    NetworkManager<String> NetworkType; //choice of the implementation
+    public Network(NetworkManager<String> manager) { NetworkType = manager; } //constructor that decides the implementation
 
+    //construction of functions
     public void addUser(String user, List<String> topicsOfInterest) { NetworkType.addUser(user, topicsOfInterest); }
     public void removeUser(String user) { NetworkType.removeUser(user); }
     public void addInterest(String user, String topicOfInterest) { NetworkType.addInterest(user, topicOfInterest); }

@@ -4,12 +4,11 @@ import static e1.Member.Category;
 import static e1.Resident.House;
 import static e1.Staff.Subject;
 
-@SuppressWarnings({"rawtypes", "unused"})
 public class School {
-    public static Member[] Members = new Member[100];
-    public static int last = 0;
+    static Member[] Members = new Member[100];
+    static int last = 0;
 
-    public static String printRewards () {
+    String printRewards () {
 
         double galleons = 0;
         StringBuilder output = new StringBuilder();
@@ -28,7 +27,7 @@ public class School {
         return output.toString();
     }
 
-    public static String printSalaries () {
+    String printSalaries () {
 
         int galleons = 0;
         StringBuilder output = new StringBuilder();
@@ -49,28 +48,28 @@ public class School {
         return output.toString();
     }
 
-    public static void newStudent(String name, String surname, House house, int horcruxes) {
+    public void newStudent(String name, String surname, House house, int horcruxes) {
         newMember(name, surname, Category.Student, horcruxes, house);
     }
 
-    public static void newGhost(String name, String surname, House house, int horcruxes) {
+    public void newGhost(String name, String surname, House house, int horcruxes) {
         newMember(name, surname, Category.Ghost, horcruxes, house);
     }
 
-    public static void newTeacher(String name, String surname, Subject subject, int horcruxes) {
+    public void newTeacher(String name, String surname, Subject subject, int horcruxes) {
         newMember(name, surname, Category.Teacher, horcruxes, subject);
     }
 
-    public static void newCareTaker(String name, String surname, int horcruxes) {
+    public void newCareTaker(String name, String surname, int horcruxes) {
         newMember(name, surname, Category.Caretaker, horcruxes, null);
     }
 
-    public static void newGamekeeper(String name, String surname, int horcruxes) {
+    public void newGamekeeper(String name, String surname, int horcruxes) {
         newMember(name, surname, Category.Gamekeeper, horcruxes, null);
     }
 
-    public static <data> void newMember (String name, String surname, Category category, int horcruxes, data d) {
-        Member mem = new Member();
+    private <DATA> void newMember (String name, String surname, Category category, int horcruxes, DATA d) {
+        Member<DATA> mem = new Member<>();
         Members[last] = Member.mewMember(name, surname, category, horcruxes, d, mem);
         last ++;
     }

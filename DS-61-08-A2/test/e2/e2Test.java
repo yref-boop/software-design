@@ -13,7 +13,7 @@ public class e2Test {
     Apartment a3 = new Apartment(2,100,0,55,1,4000);
     Apartment a4 =new Apartment(3,200,1,0,1,5000);
     Apartment a5 = new Apartment(4,300,2,11,1,6000);
-    Apartment a6 = new Apartment(5,500,3,22,1,1000);
+    Apartment a6 = new Apartment(5,400,3,22,1,1000);
 
 
 
@@ -43,6 +43,12 @@ public class e2Test {
     void printList(){
         Manager m = new Manager(apartments_list, null_code);
         m.printList();
+    }
+
+    @Test
+    void voidLList(){
+        Manager m = new Manager(null, null_code);
+        assertNull(m.getApartments());
     }
 
     @Test

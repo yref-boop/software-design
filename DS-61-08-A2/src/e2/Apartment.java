@@ -18,9 +18,28 @@ class Apartment {
         parking_spaces = parking;
         parking_price = p_price;
         pos_code = pos;
-        full_price = rent + p_price * parking;
+        full_price = base + p_price * parking;
         size = sqrmt;
     }
+
+    public Apartment() {}
+
+    //getters:
+    public int getRent_code() {return rent_code;}
+    public int getBase_price() {return base_price;}
+    public int getParking_spaces() {return parking_spaces;}
+    public int getPos_code() {return pos_code;}
+    public int getFull_price() {return full_price;}
+    public int getParking_price() {return parking_price;}
+    public int getSize() {return size;}
+
+    //setters:
+    public void setRent_code(int rent) {this.rent_code = rent;}
+    public void setBase_price(int base_price) {this.base_price = base_price;}
+    public void setParking_spaces(int parking_spaces) {this.parking_spaces = parking_spaces;}
+    public void setPos_code(int pos_code) {this.pos_code = pos_code;}
+    public void setSize(int size) {this.size = size;}
+    public void setParking_price(int parking_price) {this.parking_price = parking_price;}
 
     @Override
     public boolean equals(Object o) {
@@ -46,25 +65,6 @@ class Apartment {
         return hash;
     }
 
-
-    //getters:
-    public int getRent_code() {return rent_code;}
-    public int getBase_price() {return base_price;}
-    public int getParking_spaces() {return parking_spaces;}
-    public int getPos_code() {return pos_code;}
-    public int getFull_price() {return full_price;}
-    public int getParking_price() {return parking_price;}
-    public int getSize() {return size;}
-
-
-    //setters:
-    public void setRent_code(int rent) {this.rent_code = rent;}
-    public void setBase_price(int base_price) {this.base_price = base_price;}
-    public void setParking_spaces(int parking_spaces) {this.parking_spaces = parking_spaces;}
-    public void setPos_code(int pos_code) {this.pos_code = pos_code;}
-    public void setFull_price(int full_price) {this.full_price = full_price;}
-    public void setSize(int size) {this.size = size;}
-    public void setParking_price(int parking_price) {this.parking_price = parking_price;}
 }
 
 

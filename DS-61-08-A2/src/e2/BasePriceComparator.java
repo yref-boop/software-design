@@ -8,8 +8,6 @@ class BasePriceComparator implements Comparator<Apartment> {
     public int compare(Apartment o1, Apartment o2) {
         int code1 = o1.getBase_price();
         int code2 = o2.getBase_price();
-
-        if (code1 != code2) {return (code1 - code2);}
-        return 0;
+        return (code1 - code2);
     }
 }

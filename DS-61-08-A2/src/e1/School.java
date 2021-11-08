@@ -1,25 +1,28 @@
 package e1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static e1.Member.Category;
 import static e1.Resident.House;
 import static e1.Staff.Subject;
 
 public class School {
-    static Member[] Members = new Member[100];
-    static int last = 0;
+
+    private final List<Member> Members = new ArrayList<>();
 
     String printRewards () {
 
         double galleons = 0;
         StringBuilder output = new StringBuilder();
 
-        for (int i = 0; i < last; i++) {
+        for (Member member : Members) {
 
-            output.append(Members[i].name()).append(" ").append(Members[i].surname()).append("(")
-                    .append(Members[i].category()).append(",").append(Members[i].horcruxes())
-                    .append(" horcruxes): ").append(Members[i].getReward()).append(" galleons\n");
+            output.append(member.getName()).append(" ").append(member.getSurname()).append("(")
+                    .append(member.getCategory()).append(",").append(member.getHorcruxes())
+                    .append(" horcruxes): ").append(member.getReward()).append(" galleons\n");
 
-            galleons += Members[i].getReward();
+            galleons += member.getReward();
         }
 
         output.append("The total reward for Hogwarts School is ").append(galleons).append(" galleons\n");
@@ -32,14 +35,14 @@ public class School {
         int galleons = 0;
         StringBuilder output = new StringBuilder();
 
-        for (int i = 0; i < last; i++) {
-            switch (Members[i].category) {
+        for (Member member : Members) {
+            switch (member.category) {
                 case Teacher, Gamekeeper, Caretaker -> {
 
-                    output.append(Members[i].name()).append(" ").append(Members[i].surname())
-                            .append("(").append(Members[i].category()).append("): ")
-                            .append((int)Members[i].getReward()).append(" galleons\n");
-                    galleons += Members[i].getReward();
+                    output.append(member.getName()).append(" ").append(member.getSurname())
+                            .append("(").append(member.getCategory()).append("): ")
+                            .append((int) member.getReward()).append(" galleons\n");
+                    galleons += member.getReward();
                 }
             }
         }
@@ -49,15 +52,15 @@ public class School {
     }
 
     public void newStudent(String name, String surname, House house, int horcruxes) {
-        newMember(name, surname, Category.Student, horcruxes, house);
+        newMember(name, surname, Category.Student, horcruxes, house.toString());
     }
 
     public void newGhost(String name, String surname, House house, int horcruxes) {
-        newMember(name, surname, Category.Ghost, horcruxes, house);
+        newMember(name, surname, Category.Ghost, horcruxes, house.toString());
     }
 
     public void newTeacher(String name, String surname, Subject subject, int horcruxes) {
-        newMember(name, surname, Category.Teacher, horcruxes, subject);
+        newMember(name, surname, Category.Teacher, horcruxes, subject.toString());
     }
 
     public void newCareTaker(String name, String surname, int horcruxes) {
@@ -68,9 +71,19 @@ public class School {
         newMember(name, surname, Category.Gamekeeper, horcruxes, null);
     }
 
-    private <DATA> void newMember (String name, String surname, Category category, int horcruxes, DATA d) {
-        Member<DATA> mem = new Member<>();
-        Members[last] = Member.mewMember(name, surname, category, horcruxes, d, mem);
-        last ++;
+    private void newMember (String name, String surname, Category category, int horcruxes, String data) {
+
+        boolean exception = false;
+
+        switch (category) {
+            case Student -> Members.add(new Student(name, surname, data, horcruxes));
+            case Ghost -> Members.add(new Ghost(name, surname, data, horcruxes));
+            case Teacher -> Members.add(new Teacher(name, surname, data, horcruxes));
+            case Gamekeeper -> Members.add(new Gamekeeper(name, surname, horcruxes));
+            case Caretaker -> Members.add(new Caretaker(name, surname, horcruxes));
+            default -> exception = true;
+        }
+
+        if (exception) throw new IllegalArgumentException();
     }
 }

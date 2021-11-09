@@ -29,9 +29,11 @@ public class NetworkTest {
         test.addInterest("user1", "interest2");
         test.addInterest("user1", "interest1");
 
-        //test getInterestUser & getUsers
+        //test getInterestUser & getUsers, and some exceptions
         assertEquals("[interest2, interest1]", test.getInterestsUser("user1").toString());
         assertEquals("[user1, user2, user3]", test.getUsers().toString());
+        assertThrows(IllegalArgumentException.class, () -> test.getInterestsUser("user200"));
+        assertThrows(IllegalArgumentException.class, () -> test.addInterest("user200", ""));
 
         test.addInterest("user2", "interest1");
         test.addInterest("user2", "interest1");
@@ -89,6 +91,8 @@ public class NetworkTest {
 
         assertEquals("[interest2, interest1]", test.getInterestsUser("user1").toString());
         assertEquals("[user1, user2, user3]", test.getUsers().toString());
+        assertThrows(IllegalArgumentException.class, () -> test.getInterestsUser("user200"));
+        assertThrows(IllegalArgumentException.class, () -> test.addInterest("user200", ""));
 
         test.addInterest("user2", "interest1");
         test.addInterest("user2", "interest1");

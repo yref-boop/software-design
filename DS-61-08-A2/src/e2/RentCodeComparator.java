@@ -6,6 +6,8 @@ class RentCodeComparator implements Comparator<Apartment> {
 
     @Override
     public int compare(Apartment o1, Apartment o2) {
+        if((o1 == null)||(o2==null))
+            throw new NullPointerException();
         int code1 = o1.getRent_code();
         int code2 = o2.getRent_code();
         return (code1 - code2);

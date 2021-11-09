@@ -31,7 +31,4 @@ class Manager{
         Collections.sort(apartments, cmp); //equivalent to apartments.sort(cmp)
     }
 
-    //method to print the whole list
-    public void printList(){apartments.forEach(System.out::println);}
-
 }

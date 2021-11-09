@@ -11,7 +11,7 @@ class SchoolTest {
     void TestPrintRewards() {
         School school = new School();
 
-        //test normal behaviour
+        //test normal behaviour of functions new[...]
         school.newStudent("Hermione","Granger", House.Ravenclaw, 3);
         school.newGhost("GhostTest1", "", House.Gryffindor, 5);
         school.newStudent("StudentTest1","Surname", House.Hufflepuff, 3);
@@ -51,7 +51,7 @@ class SchoolTest {
     void TestPrintSalaries() {
         School school = new School();
 
-        //test normal behaviour
+        //test normal behaviour of functions new[...]
         school.newStudent("Hermione","Granger", House.Ravenclaw, 3);
         school.newGhost("GhostTest1", "", House.Gryffindor, 5);
         school.newStudent("StudentTest1","Surname", House.Hufflepuff, 3);

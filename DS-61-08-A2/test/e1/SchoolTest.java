@@ -15,6 +15,7 @@ class SchoolTest {
         school.newStudent("Hermione","Granger", House.Ravenclaw, 3);
         school.newGhost("GhostTest1", "", House.Gryffindor, 5);
         school.newStudent("StudentTest1","Surname", House.Hufflepuff, 3);
+        school.newStudent("StudentTest2","Surname", House.Slytherin, 0);
         school.newGhost("Bloody" , "Baron", House.Slytherin, 1);
         school.newGamekeeper("Rubeus", "Hagrid", 2);
         school.newTeacher("Minerva", "McGonagall", Subject.Transfiguration, 1);
@@ -32,6 +33,7 @@ class SchoolTest {
                 Hermione Granger(Student of Ravenclaw ,3 horcruxes): 270.0 galleons
                 GhostTest1 (Ghost of Gryffindor ,5 horcruxes): 400.0 galleons
                 StudentTest1 Surname(Student of Hufflepuff ,3 horcruxes): 270.0 galleons
+                StudentTest2 Surname(Student of Slytherin ,0 horcruxes): 0.0 galleons
                 Bloody Baron(Ghost of Slytherin ,1 horcruxes): 160.0 galleons
                 Rubeus Hagrid(Gamekeeper ,2 horcruxes): 150.0 galleons
                 Minerva McGonagall(Teacher of Transfiguration ,1 horcruxes): 50.0 galleons
@@ -53,6 +55,7 @@ class SchoolTest {
         school.newStudent("Hermione","Granger", House.Ravenclaw, 3);
         school.newGhost("GhostTest1", "", House.Gryffindor, 5);
         school.newStudent("StudentTest1","Surname", House.Hufflepuff, 3);
+        school.newStudent("StudentTest2","Surname", House.Slytherin, 0);
         school.newGhost("Bloody" , "Baron", House.Slytherin, 1);
         school.newGamekeeper("Rubeus", "Hagrid", 2);
         school.newTeacher("Minerva", "McGonagall", Subject.Transfiguration, 1);

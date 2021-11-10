@@ -1,6 +1,7 @@
 package e2;
 
 class Apartment {
+
     //attributes:
     private int rent_code;
     private int base_price;
@@ -43,10 +44,12 @@ class Apartment {
 
     @Override
     public boolean equals(Object o) {
+        //specific cases
         if (this == o) {return true;}
         if (o == null) {return false;}
         if (this.getClass() != o.getClass()) {return false;}
 
+        //check all attributes are equal
         return (this.base_price == ((Apartment) o).base_price) && (this.parking_spaces == ((Apartment) o).parking_spaces) &&
                 (this.pos_code == ((Apartment) o).pos_code) && (this.parking_price == ((Apartment) o).parking_price) &&
                 (this.size == ((Apartment) o).size);
@@ -55,6 +58,7 @@ class Apartment {
 
     @Override
     public int hashCode() {
+        ///all are ints, using 31 algorithm
         int hash = 1;
         hash = hash + 31 * this.pos_code;
         hash = hash + 31 * this.size;

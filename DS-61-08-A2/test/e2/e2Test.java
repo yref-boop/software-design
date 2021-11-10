@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class e2Test {
 
+    //set different variables taht will be needed:
+
     Apartment a1 = new Apartment(0,500,4,33,1,2000);
     Apartment a2 = new Apartment(1,0,5,44,1,3000);
     Apartment a3 = new Apartment(2,100,0,55,1,4000);
@@ -27,8 +29,9 @@ public class e2Test {
     Comparator<Apartment>  pos_code = new PosCodeComparator();
     Comparator<Apartment> null_code = null;
 
+    //20 tests for different conditions:
 
-    //individual tests:
+    //getters from the Manager class (setters are tested alongside others, there is no need for specific tests)
     @Test
     void managerGetters(){
         Manager m = new Manager(apartments_list, null_code);
@@ -39,7 +42,7 @@ public class e2Test {
         assertEquals(apartments_list, list);
     }
 
-
+    //checks that if the comparator is null, the default behaviour is correct
     @Test
     void NewVoidComparatorTest(){
         Manager m1 = new Manager(apartments_list, null_code);
@@ -48,12 +51,19 @@ public class e2Test {
         assertEquals(m1.apartments, check_list);
     }
 
+    //check that the sortApartment function returns NullPointerException when the Manager is null
     @Test
     void VoidBaseComparator(){
         Manager mv = null;
         assertThrows(NullPointerException.class, () -> mv.sortApartments());
     }
 
+    //the following tests check the correct functioning of the 5 sorting comparators:
+    //1st checks that they throw a NullPointerException when sorting a null list
+    //2nd checks that they throw a NullPointerException when sorting a list with null Apartments inside
+    //3rd checks the correct functioning of the sort under normal circumstances
+
+    //sort comparing base price
     @Test
     void NullBasePriceComparator(){
         Manager mv = new Manager(null_apartments, c_base);
@@ -73,6 +83,7 @@ public class e2Test {
         assertEquals(m2.apartments, check_list);
     }
 
+    //sort comparing the rental code
     @Test
     void NullRentCodeComparator(){
         Manager mv = new Manager(null_apartments, r_code);
@@ -93,6 +104,7 @@ public class e2Test {
         assertEquals(m3.apartments, check_list);
     }
 
+    //sort comparing the full price
     @Test
     void NullFullPriceComparator(){
         Manager mv = new Manager(null_apartments, f_price);
@@ -113,6 +125,7 @@ public class e2Test {
         assertEquals(m4.apartments, check_list);
     }
 
+    //sort comparing the size
     @Test
     void NullSizeComparator(){
         Manager mv = new Manager(null_apartments, size);
@@ -133,6 +146,7 @@ public class e2Test {
         assertEquals(m5.apartments, check_list);
     }
 
+    //sort comparing the postcode
     @Test
     void NullPosCodeComparator(){
         Manager mv = new Manager(null_apartments, pos_code);
@@ -154,16 +168,9 @@ public class e2Test {
     }
 
     @Test
-    void NewVoidNewRentCode(){
-        Manager m7 = new Manager(apartments_list, null_code);
-        m7.sortApartments();
-        Manager m8 = new Manager(apartments_list, r_code);
-        m8.sortApartments();
-        assertEquals(m7.apartments, m8.apartments);
-    }
-
-    @Test
     void AllComparator(){
+
+        //keeps on changing the comparators (tests all 5) and sorting the list
 
         Manager m9 = new Manager(apartments_list, null_code);
         m9.sortApartments();
@@ -206,6 +213,9 @@ public class e2Test {
 
     @Test
     void setApartments(){
+
+        //checks the setter of the attribute apartments of the class manager
+
         Manager m19 = new Manager(apartments_list, null_code);
         Manager m20 = new Manager(null, null_code);
         m20.setApartments(apartments_list);
@@ -214,6 +224,8 @@ public class e2Test {
 
     @Test
     void apartmentSetters(){
+
+        //checks the setters of the Apartment class
 
         Apartment a1 = new Apartment(1, 2, 3, 4, 5, 6);
         Apartment a2 = new Apartment();
@@ -228,6 +240,8 @@ public class e2Test {
 
     @Test
     void apartmentGetters(){
+
+        //checks the getters of the Apartment class
 
         Apartment a3 = new Apartment(1, 2, 3, 4, 5, 6);
         int rent = a3.getRent_code();
@@ -269,6 +283,8 @@ public class e2Test {
         int hasha11 = a11.hashCode();
         int hasha12 = a12.hashCode();
 
+        //only 4,5 and 6 should have the same hashcode
+
         assertEquals(hasha4, hasha5);
         assertEquals(hasha4, hasha6);
         assertNotEquals(hasha4, hasha7);
@@ -277,12 +293,15 @@ public class e2Test {
         assertNotEquals(hasha4, hasha10);
         assertNotEquals(hasha4, hasha11);
         assertNotEquals(hasha4, hasha12);
+
         assertThrows(NullPointerException.class, () -> {a13.hashCode();});
 
     }
 
     @Test
     void equalsApartment(){
+
+        //checks all possible combinations
 
         Apartment a0  = new Apartment(0,0,0,0,0,0);
         Apartment a1  = new Apartment(1,0,0,0,0,0);

@@ -6,14 +6,14 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class e2Test {
+public class ApartmentTest {
 
-    //set different variables taht will be needed:
+    //set different variables that will be needed:
 
     Apartment a1 = new Apartment(0,500,4,33,1,2000);
     Apartment a2 = new Apartment(1,0,5,44,1,3000);
     Apartment a3 = new Apartment(2,100,0,55,1,4000);
-    Apartment a4 =new Apartment(3,200,1,0,1,5000);
+    Apartment a4 = new Apartment(3,200,1,0,1,5000);
     Apartment a5 = new Apartment(4,300,2,11,1,6000);
     Apartment a6 = new Apartment(5,400,3,22,1,1000);
     Apartment an = null;

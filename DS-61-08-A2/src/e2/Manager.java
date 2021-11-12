@@ -30,5 +30,4 @@ class Manager{
         if(comparator == null){cmp = new RentCodeComparator();}
         Collections.sort(apartments, cmp); //equivalent to apartments.sort(cmp)
     }
-
 }

@@ -32,14 +32,16 @@ public class TreeNode<T> {
 
 //adjacency list:
 
-//C -> A,F
-//A -> B,D
+
+//A -> B -> D
 //B -> E
+//C -> A -> F
 //D -> E
-//F -> E
-//G -> H, F
-//F -> j
+//E ->
+//F -> E -> J
+//G -> H -> F
 //H -> J
+//J ->
 
 
 class TreeNode

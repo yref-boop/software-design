@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 //adjacency list:
 
-
 //A -> B -> D
 //B -> E
 //C -> A -> F
@@ -18,31 +17,129 @@ import static org.junit.jupiter.api.Assertions.*;
 //H -> J
 //J ->
 
+
 public class TaskTest {
 
-    // Add edge
-    static void addEdge(ArrayList<ArrayList<Integer>> am, int s, int d) {
-        am.get(s).add(d);
-        am.get(d).add(s);
+    public Graph givenOrphanGraph(){
+        Graph graph = new Graph();
+
+        Task A = new Task('A');
+        Task B = new Task ('B');
+        Task C = new Task ('C');
+        Task D = new Task ('D');
+        Task E = new Task ('E');
+        Task F = new Task ('F');
+        Task G = new Task ('G');
+        Task H = new Task ('H');
+        Task J = new Task ('J');
+
+        graph.addTask(A);
+        graph.addTask(B);
+        graph.addTask(C);
+        graph.addTask(D);
+        graph.addTask(E);
+        graph.addTask(F);
+        graph.addTask(G);
+        graph.addTask(H);
+        graph.addTask(J);
+
+        return graph;
+    }
+
+    public Graph givenGraph(){
+        Graph graph = new Graph();
+
+        Task A = new Task('A');     //0
+        Task B = new Task ('B');    //1
+        Task C = new Task ('C');    //2
+        Task D = new Task ('D');    //3
+        Task E = new Task ('E');    //4
+        Task F = new Task ('F');    //5
+        Task G = new Task ('G');    //6
+        Task H = new Task ('H');    //7
+        Task J = new Task ('J');    //8
+
+        graph.addTask(A);
+        graph.addTask(B);
+        graph.addTask(C);
+        graph.addTask(D);
+        graph.addTask(E);
+        graph.addTask(F);
+        graph.addTask(G);
+        graph.addTask(H);
+        graph.addTask(J);
+
+        graph.addRelation(0,1);
+        graph.addRelation(0,3);
+        graph.addRelation(1,4);
+        graph.addRelation(2,0);
+        graph.addRelation(2,5);
+        graph.addRelation(3,4);
+        graph.addRelation(5,4);
+        graph.addRelation(5,8);
+        graph.addRelation(6,5);
+        graph.addRelation(6,7);
+        graph.addRelation(7,8);
+
+        return graph;
     }
 
     @Test
-    void graph(){
+    public void EmptyGraphInitialization(){
+        Graph graph = new Graph();
+        graph.printGraph();
+    }
 
-        // Create the graph
-        int V = 5;
-        ArrayList<ArrayList<Integer>> am = new ArrayList<ArrayList<Integer>>(V);
+    @Test
+    public void orphanGraphInitialization(){
+        Graph graph = givenOrphanGraph();
+        graph.printGraph();
+    }
 
-        for (int i = 0; i < V; i++)
-            am.add(new ArrayList<Integer>());
+    @Test
+    public void graphInitialization(){
+        Graph graph = givenGraph();
+        graph.printGraph();
+    }
 
-        // Add edges
-        addEdge(am, 0, 1);
-        addEdge(am, 0, 2);
-        addEdge(am, 0, 3);
-        addEdge(am, 1, 2);
+    @Test
+    public void checkRelations(){
+        Graph graph = givenGraph();
 
-        printGraph(am);
+        assertTrue(graph.checkRelation(0,1));
+        assertTrue(graph.checkRelation(0,3));
+        assertTrue (graph.checkRelation(1,4));
+        assertTrue (graph.checkRelation(2,0));
+        assertTrue (graph.checkRelation(2,5));
+        assertTrue (graph.checkRelation(3,4));
+        assertTrue (graph.checkRelation(5,4));
+        assertTrue(graph.checkRelation(5,8));
+        assertTrue(graph.checkRelation(6,5));
+        assertTrue(graph.checkRelation(6,7));
+        assertTrue(graph.checkRelation(7,8));
+
+        assertFalse(graph.checkRelation(0,4));
+        assertFalse(graph.checkRelation(1,2));
+        assertFalse(graph.checkRelation(4,3));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(7,10));
+        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(102,10));
+        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(-435,-1));
+
+    }
+
+    @Test
+    public void getAncestors(){
+        Graph graph = givenGraph();
+        List<Integer> ancestors = new ArrayList<>();
+        ancestors.add(2);
+        ancestors.add(6);
+
+        assertEquals(ancestors,graph.Ancestors());
+
+        ancestors.add(3);
+
+        assertNotEquals(ancestors,graph.Ancestors());
     }
 
 }

@@ -1,11 +1,6 @@
-import java.util.*;
-
-
 package e2;
 
-
-
-
+import java.util.*;
 
 public class Graph{
     ArrayList<LinkedList<Task>> alist;
@@ -15,7 +10,7 @@ public class Graph{
     }
 
     public void addTask (Task task) {
-        LinkedList<Taks> currentList = new LinkedList<>();
+        LinkedList<Task> currentList = new LinkedList<>();
         currentList.add(task);
         alist.add(currentList);
     }
@@ -24,36 +19,40 @@ public class Graph{
         alist.get(source).add(destinationTask);
 
     }
-    public void checkRelation (int source, int destination) {
+    public boolean checkRelation (int source, int destination) {
+        if(source == destination) return false;
         LinkedList<Task> currentList = alist.get(source);
         Task destinationTask = alist.get(destination).get(0);
         for(Task task : currentList){
-            if(node == destinationTask) return true;
-            return false;
+            if(task == destinationTask) return true;
         }
+        return false;
     }
 
-    public void checkAncestors (int destination){
-        alist.foreach(task) -> {if(checkRelation(alist.get(indexOf(task)),alist.get(destination)));
-        else return false;}
-        return true;
+    public boolean checkAncestors (int destination){
+        for(LinkedList<Task> list : alist){
+            if(checkRelation(alist.indexOf(list), destination)) return true;
+        }
+        return false;
     }
 
     //make avaliable (push) since all algorithms need to know it (the bottom tasks just need to check if their list is only a head)
 
-    public void Ancestors (){
-        ArrayList <Task> ancestors = new ArrayList<>();
-        alist.foreach(task) -> {if (checkAncestors(alist.indexOf(task)));
-            else ancestors.add(alist.get(alist.indexOf(tak)));
+    public List<Integer> Ancestors (){
+        List<Integer> ancestors = new ArrayList<>();
+
+        for(LinkedList<Task> list : alist){
+            if(!(checkAncestors(alist.indexOf(list)))) ancestors.add(alist.indexOf(list));
         }
+        return ancestors;
     }
 
-    public void print(){
+    public void printGraph(){
         for(LinkedList<Task> currentList : alist){
             for (Task task : currentList){
                 System.out.print(task.ID + " -> ");
             }
+            System.out.print("\n");
         }
-        System.out.println();
     }
 }

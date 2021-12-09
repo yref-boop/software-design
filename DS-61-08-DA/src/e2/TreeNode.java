@@ -29,3 +29,28 @@ public class TreeNode<T> {
         traverse(obj);
     }
 }
+
+//adjacency list:
+
+//C -> A,F
+//A -> B,D
+//B -> E
+//D -> E
+//F -> E
+//G -> H, F
+//F -> j
+//H -> J
+
+
+class TreeNode
+{
+    public string Data { get; private set; }
+    public TreeNode FirstChild { get; private set; }
+    public TreeNode NextSibling { get; private set; }
+    public TreeNode (string data, TreeNode firstChild, TreeNode nextSibling)
+    {
+        this.Data = data;
+        this.FirstChild = firstChild;
+        this.NextSibling = nextSibling;
+    }
+}

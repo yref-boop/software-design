@@ -4,6 +4,7 @@ package e2;
 
 public interface SortingAlgorithm {
     void sort (Graph graph) ;
+
 }
 
 //the following classes are the concrete strategy role

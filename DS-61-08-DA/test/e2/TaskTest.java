@@ -131,15 +131,66 @@ public class TaskTest {
     @Test
     public void getAncestors(){
         Graph graph = givenGraph();
-        List<Integer> ancestors = new ArrayList<>();
-        ancestors.add(2);
-        ancestors.add(6);
+        List<Task> ancestors = new ArrayList<>();
+        Task C = new Task ('C');
+        Task G = new Task ('G');
+        ancestors.add(C);
+        ancestors.add(G);
 
         assertEquals(ancestors,graph.Ancestors());
 
-        ancestors.add(3);
+        Task E = new Task ('E');
+        ancestors.add(E);
 
         assertNotEquals(ancestors,graph.Ancestors());
     }
 
+    @Test
+    public void getChildren(){
+        Graph graph = new Graph();
+
+        Task A = new Task('A');     //0
+        Task B = new Task ('B');    //1
+        Task C = new Task ('C');    //2
+        Task D = new Task ('D');    //3
+        Task E = new Task ('E');    //4
+        Task F = new Task ('F');    //5
+        Task G = new Task ('G');    //6
+        Task H = new Task ('H');    //7
+        Task J = new Task ('J');    //8
+
+        graph.addTask(A);
+        graph.addTask(B);
+        graph.addTask(C);
+        graph.addTask(D);
+        graph.addTask(E);
+        graph.addTask(F);
+        graph.addTask(G);
+        graph.addTask(H);
+        graph.addTask(J);
+
+        graph.addRelation(0,1);
+        graph.addRelation(0,3);
+        graph.addRelation(1,4);
+        graph.addRelation(2,0);
+        graph.addRelation(2,5);
+        graph.addRelation(3,4);
+        graph.addRelation(5,4);
+        graph.addRelation(5,8);
+        graph.addRelation(6,5);
+        graph.addRelation(6,7);
+        graph.addRelation(7,8);
+
+        List<Task> children = graph.Children(A);
+        System.out.print(graph.Children(A));
+
+    }
+
+    @Test
+    public void sortHierarchical(){
+        Graph graph = givenGraph();
+        graph.setAlgorithm(new HierarchicalSort());
+        graph.sortGraph();
+
+    }
 }

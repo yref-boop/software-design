@@ -66,9 +66,19 @@ public class Graph{
         return intToTask(ancestors);
     }
 
-    public List<Task> SortTasks (List<Task> tasks){
+    public void SortTasks (List<Task> tasks){
         tasks.sort(comparator);
-        return tasks;
+    }
+
+    public List<Task> Parents (Task task){
+        List<Task> parents = new ArrayList<>();
+
+        for(LinkedList<Task> list : alist){
+            for(Task ntask : list){
+                if (ntask == task) parents.add(list.get(0));
+            }
+        }
+        return parents;
     }
 
     public void printTask (Task task){

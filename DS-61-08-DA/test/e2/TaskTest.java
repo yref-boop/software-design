@@ -193,4 +193,12 @@ public class TaskTest {
         graph.sortGraph();
 
     }
+
+    @Test
+    public void sortWeak(){
+        Graph graph = givenGraph();
+        graph.setAlgorithm(new WeakSort());
+        graph.sortGraph();
+
+    }
 }

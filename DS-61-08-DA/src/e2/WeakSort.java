@@ -5,31 +5,34 @@ import java.util.List;
 
 public class WeakSort implements SortingAlgorithm {
 
-    public void function (ArrayList<Task> list, Graph graph){
+    public void function (ArrayList<Task> list, Graph graph, ArrayList<Task> hist){
 
         ArrayList<Task> aux = new ArrayList<>();
 
         List<Task> children = graph.Children(list.get(0));
 
         for(Task task : children){
-            if (!(list.contains(task)))  aux.add(task);
+            if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
         }
 
         graph.printTask(list.get(0));
+        hist.add(list.get(0));
 
         list.remove(0);
         aux.addAll(list);
         graph.SortTasks(aux);
 
-        if (!(list.isEmpty())){
+        if (!(aux.isEmpty())){
             System.out.print(" - ");
-            function (aux, graph);
-        }
+            function (aux, graph, hist);
+        } else System.out.println();
     }
 
     @Override
     public void sort(Graph graph) {
         ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
-        function(sortlist, graph);
+        ArrayList<Task> done = new ArrayList<>();
+
+        function(sortlist, graph, done);
     }
 }

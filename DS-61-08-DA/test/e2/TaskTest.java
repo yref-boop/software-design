@@ -132,17 +132,6 @@ public class TaskTest {
     public void getAncestors(){
         Graph graph = givenGraph();
         List<Task> ancestors = new ArrayList<>();
-        Task C = new Task ('C');
-        Task G = new Task ('G');
-        ancestors.add(C);
-        ancestors.add(G);
-
-        assertEquals(ancestors,graph.Ancestors());
-
-        Task E = new Task ('E');
-        ancestors.add(E);
-
-        assertNotEquals(ancestors,graph.Ancestors());
     }
 
     @Test
@@ -182,7 +171,6 @@ public class TaskTest {
         graph.addRelation(7,8);
 
         List<Task> children = graph.Children(A);
-        System.out.print(graph.Children(A));
 
     }
 
@@ -199,6 +187,53 @@ public class TaskTest {
         Graph graph = givenGraph();
         graph.setAlgorithm(new WeakSort());
         graph.sortGraph();
+
+    }
+
+    @Test
+    public void sortStrong(){
+        Graph graph = givenGraph();
+        graph.setAlgorithm(new StrongSort());
+        graph.sortGraph();
+    }
+
+    @Test
+    public void ParentsTest(){
+        Graph graph = new Graph();
+
+        Task A = new Task('A');     //0
+        Task B = new Task ('B');    //1
+        Task C = new Task ('C');    //2
+        Task D = new Task ('D');    //3
+        Task E = new Task ('E');    //4
+        Task F = new Task ('F');    //5
+        Task G = new Task ('G');    //6
+        Task H = new Task ('H');    //7
+        Task J = new Task ('J');    //8
+
+        graph.addTask(A);
+        graph.addTask(B);
+        graph.addTask(C);
+        graph.addTask(D);
+        graph.addTask(E);
+        graph.addTask(F);
+        graph.addTask(G);
+        graph.addTask(H);
+        graph.addTask(J);
+
+        graph.addRelation(0,1);
+        graph.addRelation(0,3);
+        graph.addRelation(1,4);
+        graph.addRelation(2,0);
+        graph.addRelation(2,5);
+        graph.addRelation(3,4);
+        graph.addRelation(5,4);
+        graph.addRelation(5,8);
+        graph.addRelation(6,5);
+        graph.addRelation(6,7);
+        graph.addRelation(7,8);
+
+        List<Task> Parents = graph.Parents(F);
 
     }
 }

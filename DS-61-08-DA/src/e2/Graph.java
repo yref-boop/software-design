@@ -75,7 +75,7 @@ public class Graph{
 
         for(LinkedList<Task> list : alist){
             for(Task ntask : list){
-                if (ntask == task) parents.add(list.get(0));
+                if ((ntask == task)&&(list.indexOf(ntask)!=0)) parents.add(list.get(0));
             }
         }
         return parents;
@@ -116,4 +116,5 @@ public class Graph{
             System.out.print("\n");
         }
     }
+    //todo: function that reads the input and creates a graph (use already made functions (map?))
 }

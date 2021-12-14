@@ -25,7 +25,7 @@ public class TaskTest {
     public Graph givenOrphanGraph(){
         Graph graph = new Graph();
 
-        Task A = new Task('A');
+        Task A = new Task ('A');
         Task B = new Task ('B');
         Task C = new Task ('C');
         Task D = new Task ('D');
@@ -51,7 +51,7 @@ public class TaskTest {
     public Graph givenGraph(){
         Graph graph = new Graph();
 
-        Task A = new Task('A');     //0
+        Task A = new Task ('A');     //0
         Task B = new Task ('B');    //1
         Task C = new Task ('C');    //2
         Task D = new Task ('D');    //3
@@ -71,17 +71,17 @@ public class TaskTest {
         graph.addTask(H);
         graph.addTask(J);
 
-        graph.addRelation(0,1);
-        graph.addRelation(0,3);
-        graph.addRelation(1,4);
-        graph.addRelation(2,0);
-        graph.addRelation(2,5);
-        graph.addRelation(3,4);
-        graph.addRelation(5,4);
-        graph.addRelation(5,8);
-        graph.addRelation(6,5);
-        graph.addRelation(6,7);
-        graph.addRelation(7,8);
+        graph.addRelation(A,B);
+        graph.addRelation(A,D);
+        graph.addRelation(B,E);
+        graph.addRelation(C,A);
+        graph.addRelation(C,F);
+        graph.addRelation(D,E);
+        graph.addRelation(F,E);
+        graph.addRelation(F,J);
+        graph.addRelation(G,F);
+        graph.addRelation(G,H);
+        graph.addRelation(H,J);
 
         return graph;
     }
@@ -89,19 +89,16 @@ public class TaskTest {
     @Test
     public void EmptyGraphInitialization(){
         Graph graph = new Graph();
-        graph.printGraph();
     }
 
     @Test
     public void orphanGraphInitialization(){
         Graph graph = givenOrphanGraph();
-        graph.printGraph();
     }
 
     @Test
     public void graphInitialization(){
-        Graph graph = givenGraph();
-        graph.printGraph();
+        Graph graph = givenGraph(); graph.printGraph();
     }
 
     @Test
@@ -140,7 +137,7 @@ public class TaskTest {
     public void getChildren(){
         Graph graph = new Graph();
 
-        Task A = new Task('A');     //0
+        Task A = new Task ('A');     //0
         Task B = new Task ('B');    //1
         Task C = new Task ('C');    //2
         Task D = new Task ('D');    //3
@@ -160,17 +157,17 @@ public class TaskTest {
         graph.addTask(H);
         graph.addTask(J);
 
-        graph.addRelation(0,1);
-        graph.addRelation(0,3);
-        graph.addRelation(1,4);
-        graph.addRelation(2,0);
-        graph.addRelation(2,5);
-        graph.addRelation(3,4);
-        graph.addRelation(5,4);
-        graph.addRelation(5,8);
-        graph.addRelation(6,5);
-        graph.addRelation(6,7);
-        graph.addRelation(7,8);
+        graph.addRelation(A,B);
+        graph.addRelation(A,D);
+        graph.addRelation(B,E);
+        graph.addRelation(C,A);
+        graph.addRelation(C,F);
+        graph.addRelation(D,E);
+        graph.addRelation(F,E);
+        graph.addRelation(F,J);
+        graph.addRelation(G,F);
+        graph.addRelation(G,H);
+        graph.addRelation(H,J);
 
         List<Task> children = graph.Children(A);
 
@@ -223,17 +220,17 @@ public class TaskTest {
         graph.addTask(H);
         graph.addTask(J);
 
-        graph.addRelation(0,1);
-        graph.addRelation(0,3);
-        graph.addRelation(1,4);
-        graph.addRelation(2,0);
-        graph.addRelation(2,5);
-        graph.addRelation(3,4);
-        graph.addRelation(5,4);
-        graph.addRelation(5,8);
-        graph.addRelation(6,5);
-        graph.addRelation(6,7);
-        graph.addRelation(7,8);
+        graph.addRelation(A,B);
+        graph.addRelation(A,D);
+        graph.addRelation(B,E);
+        graph.addRelation(C,A);
+        graph.addRelation(C,F);
+        graph.addRelation(D,E);
+        graph.addRelation(F,E);
+        graph.addRelation(F,J);
+        graph.addRelation(G,F);
+        graph.addRelation(G,H);
+        graph.addRelation(H,J);
 
         List<Task> Parents = graph.Parents(F);
 
@@ -258,8 +255,8 @@ public class TaskTest {
 
         List<Character> input = new ArrayList<>(Arrays.asList(chars));
 
-        graph = graph.readInput(input);
-
+        GraphInitializator granny = new GraphInitializator();
+        graph = granny.readInput(input);
         graph.printGraph();
     }
 

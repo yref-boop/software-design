@@ -15,7 +15,7 @@ public class WeakSort implements SortingAlgorithm {
             if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
         }
 
-        graph.printTask(list.get(0));
+        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         list.remove(0);

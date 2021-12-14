@@ -17,7 +17,7 @@ public class HierarchicalSort implements SortingAlgorithm {
 
         graph.SortTasks(aux);
 
-        graph.printTask(list.get(0));
+        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         list.remove(0);

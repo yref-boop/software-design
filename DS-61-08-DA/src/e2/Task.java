@@ -3,7 +3,7 @@ package e2;
 public class Task{
 
 
-    public char ID;
+    private final char ID;
 
     public char getID(){
         return this.ID;

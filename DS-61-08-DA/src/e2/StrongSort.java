@@ -11,7 +11,7 @@ public class StrongSort implements SortingAlgorithm {
 
         List<Task> children = graph.Children(list.get(0));
 
-        graph.printTask(list.get(0));
+        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         for(Task task : children){

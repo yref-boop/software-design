@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
 
+    //todo: implement and correct tests: coverage now: class 100%, method 88%, line 88%, branch84%
+
     public Graph givenOrphanGraph(){
         Graph graph = new Graph();
 

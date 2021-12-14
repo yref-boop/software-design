@@ -39,7 +39,7 @@ public class Graph{
         return false;
     }
 
-    public List<Integer> taskToInt (List<Task> tasks){
+    private List<Integer> taskToPosition (List<Task> tasks){
         List<Integer> ints = new ArrayList<>();
         for(Task task : tasks) {
             for (LinkedList<Task> list : alist) {
@@ -49,7 +49,7 @@ public class Graph{
         return ints;
     }
 
-    public List<Task> intToTask (List<Integer> list){
+    private List<Task> posToTask (List<Integer> list){
         List<Task> tasks = new ArrayList<>();
         for (int n : list){
             tasks.add(alist.get(n).get(0));
@@ -63,7 +63,7 @@ public class Graph{
         for(LinkedList<Task> list : alist){
             if(!(checkAncestors(alist.indexOf(list)))) ancestors.add(alist.indexOf(list));
         }
-        return intToTask(ancestors);
+        return posToTask(ancestors);
     }
 
     public void SortTasks (List<Task> tasks){
@@ -116,5 +116,22 @@ public class Graph{
             System.out.print("\n");
         }
     }
-    //todo: function that reads the input and creates a graph (use already made functions (map?))
+
+    //todo: finnish this function
+    public void readInput(List<Character> input){
+
+        Graph graph = new Graph();
+
+        char task1, task2;
+        task1 = input.get(0);
+        task2 = input.get(6);
+
+        new Task(task1);
+        new Task(task2);
+
+        graph.addRelation(1,2);
+
+
+
+    }
 }

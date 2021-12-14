@@ -203,7 +203,7 @@ public class TaskTest {
     public void ParentsTest(){
         Graph graph = new Graph();
 
-        Task A = new Task('A');     //0
+        Task A = new Task ('A');    //0
         Task B = new Task ('B');    //1
         Task C = new Task ('C');    //2
         Task D = new Task ('D');    //3
@@ -236,6 +236,51 @@ public class TaskTest {
         graph.addRelation(7,8);
 
         List<Task> Parents = graph.Parents(F);
+
+    }
+
+    @Test
+    public void InputTest(){
+        Graph graph = new Graph();
+
+        Character[] chars = {
+        'C',' ','-', '>',' ','A','\n',
+        'C',' ','-', '>',' ','F','\n',
+        'A',' ','-', '>',' ','B','\n',
+        'A',' ','-', '>',' ','D','\n',
+        'B',' ','-', '>',' ','E','\n',
+        'D',' ','-', '>',' ','E','\n',
+        'F',' ','-', '>',' ','E','\n',
+        'G',' ','-', '>',' ','F','\n',
+        'G',' ','-', '>',' ','H','\n',
+        'F',' ','-', '>',' ','J','\n',
+        'H',' ','-', '>',' ','J','\n'};
+
+        List<Character> input = new ArrayList<>(Arrays.asList(chars));
+
+        graph = graph.readInput(input);
+
+        graph.printGraph();
+    }
+
+    @Test
+    public void AllSorts(){
+
+        Graph graph = givenGraph();
+
+        assertThrows(NullPointerException.class, graph::sortGraph);
+
+        graph.setAlgorithm(new StrongSort());
+        System.out.println(graph.getAlgorithm());
+        graph.sortGraph();
+
+        graph.setAlgorithm(new WeakSort());
+        System.out.println(graph.getAlgorithm());
+        graph.sortGraph();
+
+        graph.setAlgorithm(new HierarchicalSort());
+        System.out.println(graph.getAlgorithm());
+        graph.sortGraph();
 
     }
 }

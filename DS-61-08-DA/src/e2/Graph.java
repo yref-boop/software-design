@@ -17,17 +17,18 @@ public class Graph{
         currentList.add(task);
         alist.add(currentList);
     }
+
     public void addRelation (int source, int destination) {
         Task destinationTask = alist.get(destination).get(0);
         alist.get(source).add(destinationTask);
-
     }
+
     public boolean checkRelation (int source, int destination) {
         if(source == destination) return false;
         LinkedList<Task> currentList = alist.get(source);
         Task destinationTask = alist.get(destination).get(0);
         for(Task task : currentList){
-            if(task == destinationTask) return true;
+            if(task.ID == destinationTask.ID) return true;
         }
         return false;
     }
@@ -39,14 +40,11 @@ public class Graph{
         return false;
     }
 
-    private List<Integer> taskToPosition (List<Task> tasks){
-        List<Integer> ints = new ArrayList<>();
-        for(Task task : tasks) {
-            for (LinkedList<Task> list : alist) {
-                if (list.get(0) == task) ints.add(alist.indexOf(list));
-            }
+    private int taskToPos (Task task){
+        for (LinkedList<Task> list : alist) {
+            if (list.get(0).ID == task.ID) return alist.indexOf(list);
         }
-        return ints;
+        return -1;
     }
 
     private List<Task> posToTask (List<Integer> list){
@@ -75,7 +73,7 @@ public class Graph{
 
         for(LinkedList<Task> list : alist){
             for(Task ntask : list){
-                if ((ntask == task)&&(list.indexOf(ntask)!=0)) parents.add(list.get(0));
+                if ((ntask.ID == task.ID)&&(list.indexOf(ntask)!=0)) parents.add(list.get(0));
             }
         }
         return parents;
@@ -89,9 +87,9 @@ public class Graph{
         List<Task> children = new ArrayList<>();
 
         for(LinkedList<Task> list : alist){
-            if(list.get(0) == task) {
+            if(list.get(0).ID == task.ID) {
                 for(Task tasks : list){
-                    if(task != tasks) children.add(tasks);}}
+                    if(task.ID != tasks.ID) children.add(tasks);}}
         }
         return children;
     }
@@ -117,21 +115,40 @@ public class Graph{
         }
     }
 
-    //todo: finnish this function
-    public void readInput(List<Character> input){
-
-        Graph graph = new Graph();
+    private void readOne(List<Character> input, Graph graph){
 
         char task1, task2;
         task1 = input.get(0);
-        task2 = input.get(6);
+        task2 = input.get(5);
 
-        new Task(task1);
-        new Task(task2);
+        Task t1 = new Task(task1);
+        Task t2 = new Task(task2);
 
-        graph.addRelation(1,2);
+        if (graph.taskToPos(t1) == -1){graph.addTask(t1);}
+        if (graph.taskToPos(t2) == -1){graph.addTask(t2);}
+
+        graph.addRelation(graph.taskToPos(t1),graph.taskToPos(t2));
+
+    }
+
+    public Graph readInput (List<Character> input) {
+
+        Graph graph = new Graph();
+        int i = 0;
+        int size = input.size();
+        List<Character> aux = new ArrayList<>();
+
+        while (i < size) {
 
 
-
+            if (input.get(i) != '\n') {
+                aux.add(input.get(i));
+            } else {
+                readOne(aux, graph);
+                aux.clear();
+            }
+            i++;
+        }
+        return graph;
     }
 }

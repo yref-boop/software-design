@@ -21,7 +21,6 @@ public class Graph{
 
     public void addTask (Task task) {
         LinkedList<Task> currentList = new LinkedList<>();
-
         if(taskToPos (task) == -1){ currentList.add(task); alist.add(currentList);}
 
     }
@@ -44,16 +43,9 @@ public class Graph{
         return false;
     }
 
-    public boolean checkAncestors (int destination){
-        for(LinkedList<Task> list : alist){
-            if(checkRelation(alist.indexOf(list), destination)) return true;
-        }
-        return false;
-    }
-
     private int taskToPos (Task task){
         for (LinkedList<Task> list : alist) {
-            if ((list != null)&&(list.get(0).getID() == task.getID()))return alist.indexOf(list);
+            if ((list != null) && (list.get(0).getID() == task.getID()))return alist.indexOf(list);
         }
         return -1;
     }
@@ -68,9 +60,15 @@ public class Graph{
 
     public List<Task> Ancestors (){
         List<Integer> ancestors = new ArrayList<>();
+        boolean anc = true;
 
         for(LinkedList<Task> list : alist){
-            if(!(checkAncestors(alist.indexOf(list)))) ancestors.add(alist.indexOf(list));
+
+            for(LinkedList<Task> tlist : alist){
+                if(checkRelation(alist.indexOf(tlist), alist.indexOf(list))) {anc = true; break;}
+                else anc = false;
+            }
+            if(!anc) ancestors.add(alist.indexOf(list));
         }
         return posToTask(ancestors);
     }

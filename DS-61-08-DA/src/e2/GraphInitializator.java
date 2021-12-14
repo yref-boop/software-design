@@ -17,7 +17,6 @@ public class GraphInitializator {
         graph.addTask(t2);
 
         graph.addRelation(t1, t2);
-
     }
 
     public Graph readInput (List<Character> input) {

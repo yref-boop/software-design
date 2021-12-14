@@ -2,7 +2,6 @@ package e2;
 
 public class Task{
 
-
     private final char ID;
 
     public char getID(){

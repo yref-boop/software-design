@@ -103,18 +103,17 @@ public class TaskTest {
     public void checkRelations(){
         Graph graph = givenGraph();
 
-        assertTrue(graph.checkRelation(0,1));
-        assertTrue(graph.checkRelation(0,3));
+        assertTrue (graph.checkRelation(0,1));
+        assertTrue (graph.checkRelation(0,3));
         assertTrue (graph.checkRelation(1,4));
         assertTrue (graph.checkRelation(2,0));
         assertTrue (graph.checkRelation(2,5));
         assertTrue (graph.checkRelation(3,4));
         assertTrue (graph.checkRelation(5,4));
-        assertTrue(graph.checkRelation(5,8));
-        assertTrue(graph.checkRelation(6,5));
-        assertTrue(graph.checkRelation(6,7));
-        assertTrue(graph.checkRelation(7,8));
-
+        assertTrue (graph.checkRelation(5,8));
+        assertTrue (graph.checkRelation(6,5));
+        assertTrue (graph.checkRelation(6,7));
+        assertTrue (graph.checkRelation(7,8));
         assertFalse(graph.checkRelation(0,4));
         assertFalse(graph.checkRelation(1,2));
         assertFalse(graph.checkRelation(4,3));
@@ -135,7 +134,7 @@ public class TaskTest {
     public void getChildren(){
         Graph graph = new Graph();
 
-        Task A = new Task ('A');     //0
+        Task A = new Task ('A');    //0
         Task B = new Task ('B');    //1
         Task C = new Task ('C');    //2
         Task D = new Task ('D');    //3

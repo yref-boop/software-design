@@ -21,7 +21,7 @@ public class StrongSort implements SortingAlgorithm {
 
         list.remove(0);
         aux.addAll(list);
-        graph.SortTasks(aux);
+        if (!(aux.isEmpty())) aux.get(0).SortTasks(aux);
 
         if (!(aux.isEmpty())){
             System.out.print(" - ");

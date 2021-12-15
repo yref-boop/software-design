@@ -28,7 +28,6 @@ public class GraphInitializator {
 
         while (i < size) {
 
-
             if (input.get(i) != '\n') {
                 aux.add(input.get(i));
             } else {

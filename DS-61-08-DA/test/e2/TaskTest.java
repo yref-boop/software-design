@@ -96,32 +96,7 @@ public class TaskTest {
 
     @Test
     public void graphInitialization(){
-        Graph graph = givenGraph(); graph.printGraph();
-    }
-
-    @Test
-    public void checkRelations(){
         Graph graph = givenGraph();
-
-        assertTrue (graph.checkRelation(0,1));
-        assertTrue (graph.checkRelation(0,3));
-        assertTrue (graph.checkRelation(1,4));
-        assertTrue (graph.checkRelation(2,0));
-        assertTrue (graph.checkRelation(2,5));
-        assertTrue (graph.checkRelation(3,4));
-        assertTrue (graph.checkRelation(5,4));
-        assertTrue (graph.checkRelation(5,8));
-        assertTrue (graph.checkRelation(6,5));
-        assertTrue (graph.checkRelation(6,7));
-        assertTrue (graph.checkRelation(7,8));
-        assertFalse(graph.checkRelation(0,4));
-        assertFalse(graph.checkRelation(1,2));
-        assertFalse(graph.checkRelation(4,3));
-
-        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(7,10));
-        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(102,10));
-        assertThrows(IndexOutOfBoundsException.class, () -> graph.checkRelation(-435,-1));
-
     }
 
     @Test
@@ -254,7 +229,6 @@ public class TaskTest {
 
         GraphInitializator granny = new GraphInitializator();
         graph = granny.readInput(input);
-        graph.printGraph();
     }
 
     @Test

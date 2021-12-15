@@ -15,7 +15,7 @@ public class HierarchicalSort implements SortingAlgorithm {
             if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
         }
 
-        graph.SortTasks(aux);
+        if (!(aux.isEmpty())) aux.get(0).SortTasks(aux);
 
         System.out.print(list.get(0).getID());
         hist.add(list.get(0));

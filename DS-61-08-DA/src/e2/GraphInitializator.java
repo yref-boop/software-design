@@ -10,23 +10,44 @@ public class GraphInitializator {
         ch1 = input.get(0);
         ch2 = input.get(5);
 
-        boolean exists = false;
+        boolean exists1 = false;
+        boolean exists2 = false;
+
+        Task X = null;
+        Task Y = null;
+
         for (Task tasks : graph.getAlist()){
             if (tasks.getID() == ch1) {
-                tasks.addChild();
-                exists = true;
+                exists1 = true;
+                X = tasks;
                 break;
             }
         }
-        if (exists)
-
-            Task t1 = new Task(ch1);
-        Task t2 = new Task(task2);
-
-        t1.addChild(t2);
-
-        graph.addTask(t1);
-        graph.addTask(t2);
+        for (Task tasks : graph.getAlist()){
+            if (tasks.getID() == ch2) {
+                exists2 = true;
+                Y = tasks;
+                break;
+            }
+        }
+        if (exists1 && exists2) X.addChild(Y);
+        if (exists1 && !exists2){
+            Y = new Task(ch2);
+            graph.addTask(Y);
+            X.addChild(Y);
+        }
+        if(!exists1 && exists2){
+            X = new Task(ch1);
+            graph.addTask(X);
+            X.addChild(Y);
+        }
+        if(!exists1 && !exists2){
+            X = new Task(ch1);
+            Y = new Task(ch2);
+            graph.addTask(X);
+            graph.addTask(Y);
+            X.addChild(Y);
+        }
     }
 
     public Graph readInput (List<Character> input) {

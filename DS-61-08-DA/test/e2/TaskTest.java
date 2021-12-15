@@ -1,6 +1,5 @@
 package e2;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 
@@ -87,44 +86,6 @@ public class TaskTest {
             return graph;
     }
 
-    /*public Graph givenGraph(){
-        Graph graph = new Graph();
-
-        Task A = new Task ('A');     //0
-        Task B = new Task ('B');    //1
-        Task C = new Task ('C');    //2
-        Task D = new Task ('D');    //3
-        Task E = new Task ('E');    //4
-        Task F = new Task ('F');    //5
-        Task G = new Task ('G');    //6
-        Task H = new Task ('H');    //7
-        Task J = new Task ('J');    //8
-
-        graph.addTask(A);
-        graph.addTask(B);
-        graph.addTask(C);
-        graph.addTask(D);
-        graph.addTask(E);
-        graph.addTask(F);
-        graph.addTask(G);
-        graph.addTask(H);
-        graph.addTask(J);
-
-        graph.addRelation(A,B);
-        graph.addRelation(A,D);
-        graph.addRelation(B,E);
-        graph.addRelation(C,A);
-        graph.addRelation(C,F);
-        graph.addRelation(D,E);
-        graph.addRelation(F,E);
-        graph.addRelation(F,J);
-        graph.addRelation(G,F);
-        graph.addRelation(G,H);
-        graph.addRelation(H,J);
-
-        return graph;
-    }*/
-
     @Test
     public void EmptyGraphInitialization(){
         Graph graph = new Graph();
@@ -145,53 +106,12 @@ public class TaskTest {
         Graph graph = newGraph();
         List<Task> ancestors = new ArrayList<>();
     }
-/*
-    @Test
-    public void getChildren(){
-        Graph graph = new Graph();
-
-        Task A = new Task ('A');    //0
-        Task B = new Task ('B');    //1
-        Task C = new Task ('C');    //2
-        Task D = new Task ('D');    //3
-        Task E = new Task ('E');    //4
-        Task F = new Task ('F');    //5
-        Task G = new Task ('G');    //6
-        Task H = new Task ('H');    //7
-        Task J = new Task ('J');    //8
-
-        graph.addTask(A);
-        graph.addTask(B);
-        graph.addTask(C);
-        graph.addTask(D);
-        graph.addTask(E);
-        graph.addTask(F);
-        graph.addTask(G);
-        graph.addTask(H);
-        graph.addTask(J);
-
-        graph.addRelation(A,B);
-        graph.addRelation(A,D);
-        graph.addRelation(B,E);
-        graph.addRelation(C,A);
-        graph.addRelation(C,F);
-        graph.addRelation(D,E);
-        graph.addRelation(F,E);
-        graph.addRelation(F,J);
-        graph.addRelation(G,F);
-        graph.addRelation(G,H);
-        graph.addRelation(H,J);
-
-        List<Task> children = graph.Children(A);
-
-    }*/
 
     @Test
     public void sortHierarchical(){
         Graph graph = newGraph();
         graph.setAlgorithm(new HierarchicalSort());
         graph.sortGraph();
-
     }
 
     @Test
@@ -199,7 +119,6 @@ public class TaskTest {
         Graph graph = newGraph();
         graph.setAlgorithm(new WeakSort());
         graph.sortGraph();
-
     }
 
     @Test
@@ -209,51 +128,9 @@ public class TaskTest {
         graph.sortGraph();
     }
 
-    /*
-
-    @Test
-    public void ParentsTest(){
-        Graph graph = new Graph();
-
-        Task A = new Task ('A');    //0
-        Task B = new Task ('B');    //1
-        Task C = new Task ('C');    //2
-        Task D = new Task ('D');    //3
-        Task E = new Task ('E');    //4
-        Task F = new Task ('F');    //5
-        Task G = new Task ('G');    //6
-        Task H = new Task ('H');    //7
-        Task J = new Task ('J');    //8
-
-        graph.addTask(A);
-        graph.addTask(B);
-        graph.addTask(C);
-        graph.addTask(D);
-        graph.addTask(E);
-        graph.addTask(F);
-        graph.addTask(G);
-        graph.addTask(H);
-        graph.addTask(J);
-
-        graph.addRelation(A,B);
-        graph.addRelation(A,D);
-        graph.addRelation(B,E);
-        graph.addRelation(C,A);
-        graph.addRelation(C,F);
-        graph.addRelation(D,E);
-        graph.addRelation(F,E);
-        graph.addRelation(F,J);
-        graph.addRelation(G,F);
-        graph.addRelation(G,H);
-        graph.addRelation(H,J);
-
-        List<Task> Parents = graph.Parents(F);
-
-    }*/
-
     @Test
     public void InputTest(){
-        Graph graph;
+        Graph graph_in, graph;
 
         Character[] chars = {
         'C',' ','-', '>',' ','A','\n',
@@ -270,12 +147,16 @@ public class TaskTest {
 
         List<Character> input = new ArrayList<>(Arrays.asList(chars));
 
-        GraphInitializator granny = new GraphInitializator();
-        graph = granny.readInput(input);
+        GraphInitializator ginny = new GraphInitializator();
+        graph_in = ginny.readInput(input);
+        graph_in.printGraph();
+        graph = newGraph();
+        graph.printGraph();
+
     }
 
     @Test
-    public void AllSorts(){
+    public void MainTest(){
 
         Graph graph;
 
@@ -294,12 +175,12 @@ public class TaskTest {
 
         List<Character> input = new ArrayList<>(Arrays.asList(chars));
 
-        GraphInitializator granny = new GraphInitializator();
-        graph = granny.readInput(input);
+        GraphInitializator ginny = new GraphInitializator();
+        graph = ginny.readInput(input);
 
         graph.printGraph();
 
-        Task A = new Task ('A');     //0
+        Task A = new Task ('A');    //0
         Task B = new Task ('B');    //1
         Task C = new Task ('C');    //2
         Task D = new Task ('D');    //3
@@ -358,15 +239,48 @@ public class TaskTest {
 
         graph.setAlgorithm(new StrongSort());
         System.out.println(graph.getAlgorithm());
-        assertEquals(StrongCheck,graph.sortGraph());
+        List<Task> StrongResult = graph.sortGraph();
+
+        int i = 0;
+        boolean sbool = true;
+        while (i < StrongCheck.size()-1){
+            if (!(StrongCheck.get(i).getID() == StrongResult.get(i).getID())){
+                sbool = false;
+                break;
+            }
+            i++;
+        }
+        assertTrue(sbool);
 
         graph.setAlgorithm(new WeakSort());
         System.out.println(graph.getAlgorithm());
-        assertEquals(WeakCheck,graph.sortGraph());
+        List<Task> WeakResult = graph.sortGraph();
+
+        int j = 0;
+        boolean wbool = true;
+        while (j < WeakCheck.size()-1){
+            if (!(WeakCheck.get(i).getID() == WeakResult.get(i).getID())){
+                wbool = false;
+                break;
+            }
+            j++;
+        }
+        assertTrue(wbool);
 
         graph.setAlgorithm(new HierarchicalSort());
         System.out.println(graph.getAlgorithm());
-        assertEquals(HierarchyCheck,graph.sortGraph());
+        List<Task> HierarchyResult = graph.sortGraph();
+
+        int k = 0;
+        boolean hbool = true;
+        while (k < HierarchyCheck.size()-1){
+            if (!(HierarchyCheck.get(i).getID() == HierarchyResult.get(i).getID())){
+                hbool = false;
+                break;
+            }
+            k++;
+        }
+        assertTrue(hbool);
 
     }
 }

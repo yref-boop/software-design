@@ -1,13 +1,13 @@
 package e1;
 
-public class Ticket {
-    String origin = "";
-    String destination = "";
-    int prize = 0;
-    String date = "";
+public class Ticket extends TicketManager {
+    String origin, destination, date;
+    int price;
 
-    public void setOrigin(String origin) { this.origin = origin; }
-    public void setDestination(String destination) { this.destination = destination; }
-    public void setPrize(int prize) { this.prize = prize; }
-    public void setDate(String date) { this.date = date; }
+    public void setTicket(String origin, String destination, int price, String date) {
+        this.origin = origin;
+        this.destination = destination;
+        this.price = price;
+        this.date = date;
+    }
 }

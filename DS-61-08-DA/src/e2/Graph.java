@@ -2,38 +2,22 @@ package e2;
 import java.util.*;
 
 public class Graph{
-    ArrayList<LinkedList<Task>> alist;
+    private List<Task> alist;
     private SortingAlgorithm algorithm;
 
-    Graph(){alist = new ArrayList<>();}
+    Graph(){ alist = new ArrayList<>();}
+
+    public List<Task> getAlist() { return alist; }
 
     public void addTask (Task task) {
-        LinkedList<Task> currentList = new LinkedList<>();
         if(taskToPos (task) == -1){
-            currentList.add(task);
-            alist.add(currentList);
+            alist.add(task);
         }
     }
 
-    public void addRelation (Task source, Task destination) {
-        int s_pos = taskToPos(source);
-        int d_pos = taskToPos(destination);
-        Task destinationTask = alist.get(d_pos).get(0);
-        alist.get(s_pos).add(destinationTask);
-    }
-
-    private boolean checkRelation (int source, int destination) {
-        if(source == destination) return false;
-        LinkedList<Task> currentList = alist.get(source);
-        Task destinationTask = alist.get(destination).get(0);
-        for(Task task : currentList)
-            if(task.getID() == destinationTask.getID()) return true;
-        return false;
-    }
-
     private int taskToPos (Task task){
-        for (LinkedList<Task> list : alist)
-            if ((list != null) && (list.get(0).getID() == task.getID()))return alist.indexOf(list);
+        for (Task tasks : alist)
+            if ((tasks != null) && (tasks.getID() == task.getID())) return alist.indexOf(tasks);
         return -1;
     }
 
@@ -41,12 +25,14 @@ public class Graph{
         List<Task> ancestors = new ArrayList<>();
         boolean anc = true;
 
-        for(LinkedList<Task> list : alist){
-            for(LinkedList<Task> tlist : alist){
-                if(checkRelation(alist.indexOf(tlist), alist.indexOf(list))) {anc = true; break;}
-                else anc = false;
+        for(Task task1 : alist){
+            for(Task task2 : alist) {
+                if (task2.checkRelation(task1)) {
+                    anc = true;
+                    break;
+                } else anc = false;
             }
-            if(!anc) ancestors.add(alist.get(alist.indexOf(list)).get(0));
+            if(!anc) ancestors.add(task1);
         }
         return (ancestors);
     }
@@ -54,27 +40,26 @@ public class Graph{
     public List<Task> Parents (Task task){
         List<Task> parents = new ArrayList<>();
 
-        for(LinkedList<Task> list : alist)
-            for(Task ntask : list)
-                if ((ntask.getID() == task.getID())&&(list.indexOf(ntask)!=0)) parents.add(list.get(0));
+        for(Task tasks : alist)
+            for (Task child : tasks.Children())
+                if (child.getID() == task.getID())
+                    parents.add(tasks);
+
         return parents;
     }
 
-    public List<Task> Children(Task task){
-        List<Task> children = new ArrayList<>();
-
-        for(LinkedList<Task> list : alist){
-            if(list.get(0).getID() == task.getID()) {
-                for(Task tasks : list)
-                    if(task.getID() != tasks.getID()) children.add(tasks);
-            }
+    public void printGraph(){
+        for (Task tasks : alist){
+            System.out.print(tasks.getID() + " -> ");
+            for (Task child : tasks.Children())
+                System.out.print(child.getID() + " -> ");
+            System.out.println("");
         }
-        return children;
     }
 
-    public SortingAlgorithm getAlgorithm(){return algorithm;}
+    public SortingAlgorithm getAlgorithm() { return algorithm; }
 
-    public void setAlgorithm (SortingAlgorithm algorithm){this.algorithm = algorithm;}
+    public void setAlgorithm (SortingAlgorithm algorithm){ this.algorithm = algorithm; }
 
-    public void sortGraph(){algorithm.sort(this);}
+    public List<Task> sortGraph(){ return algorithm.sort(this); }
 }

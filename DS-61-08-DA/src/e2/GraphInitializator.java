@@ -6,17 +6,27 @@ import java.util.List;
 public class GraphInitializator {
     private void readOne(List<Character> input, Graph graph){
 
-        char task1, task2;
-        task1 = input.get(0);
-        task2 = input.get(5);
+        char ch1, ch2;
+        ch1 = input.get(0);
+        ch2 = input.get(5);
 
-        Task t1 = new Task(task1);
+        boolean exists = false;
+        for (Task tasks : graph.getAlist()){
+            if (tasks.getID() == ch1) {
+                tasks.addChild();
+                exists = true;
+                break;
+            }
+        }
+        if (exists)
+
+            Task t1 = new Task(ch1);
         Task t2 = new Task(task2);
+
+        t1.addChild(t2);
 
         graph.addTask(t1);
         graph.addTask(t2);
-
-        graph.addRelation(t1, t2);
     }
 
     public Graph readInput (List<Character> input) {

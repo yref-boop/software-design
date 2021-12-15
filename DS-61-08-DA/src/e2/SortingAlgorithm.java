@@ -1,6 +1,8 @@
 package e2;
 
+import java.util.List;
+
 public interface SortingAlgorithm {
-    void sort (Graph graph) ;
+    List<Task> sort (Graph graph) ;
 }
 

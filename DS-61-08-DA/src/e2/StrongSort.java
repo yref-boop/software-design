@@ -5,11 +5,11 @@ import java.util.List;
 
 public class StrongSort implements SortingAlgorithm {
 
-    public void function (ArrayList<Task> list, Graph graph, ArrayList<Task> hist){
+    public List<Task> function (ArrayList<Task> list, Graph graph, ArrayList<Task> hist){
 
         ArrayList<Task> aux = new ArrayList<>();
 
-        List<Task> children = graph.Children(list.get(0));
+        List<Task> children = list.get(0).Children();
 
         System.out.print(list.get(0).getID());
         hist.add(list.get(0));
@@ -27,15 +27,16 @@ public class StrongSort implements SortingAlgorithm {
             System.out.print(" - ");
             function (aux, graph, hist);
         } else System.out.println();
+        return hist;
     }
 
 
 
     @Override
-    public void sort(Graph graph) {
+    public List<Task> sort(Graph graph) {
         ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();
 
-        function(sortlist, graph, hist);
+        return function(sortlist, graph, hist);
     }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 
 public class WeakSort implements SortingAlgorithm {
 
-    public void function (ArrayList<Task> list, Graph graph, ArrayList<Task> hist){
+    public List<Task> function (ArrayList<Task> list, ArrayList<Task> hist){
 
         ArrayList<Task> aux = new ArrayList<>();
 
-        List<Task> children = graph.Children(list.get(0));
+        List<Task> children = list.get(0).Children();
 
         for(Task task : children){
             if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
@@ -24,15 +24,16 @@ public class WeakSort implements SortingAlgorithm {
 
         if (!(aux.isEmpty())){
             System.out.print(" - ");
-            function (aux, graph, hist);
+            function (aux, hist);
         } else System.out.println();
+        return hist;
     }
 
     @Override
-    public void sort(Graph graph) {
+    public List<Task> sort(Graph graph) {
         ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> done = new ArrayList<>();
 
-        function(sortlist, graph, done);
+        return function(sortlist, done);
     }
 }

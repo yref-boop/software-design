@@ -13,7 +13,6 @@ public class Destination implements Characteristic<Destination> {
 
     @Override
     public void filter(Ticket element, ArrayList<Ticket> selection, ArrayList<Object> queue) {
-        new Filter()
         boolean keep = true;
         for (Object o : queue) {
             if (o.getClass().equals(Destination.class)) {

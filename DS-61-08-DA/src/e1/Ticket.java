@@ -1,6 +1,6 @@
 package e1;
 
-public class Ticket extends TicketManager {
+public class Ticket {
     String origin, destination, date;
     int price;
 
@@ -9,5 +9,10 @@ public class Ticket extends TicketManager {
         this.destination = destination;
         this.price = price;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return (origin + " - " + destination + " " + price + "€ " + date + "\n");
     }
 }

@@ -8,11 +8,10 @@ public class WeakSort implements SortingAlgorithm {
     public List<Task> function (ArrayList<Task> list, ArrayList<Task> hist){
 
         ArrayList<Task> aux = new ArrayList<>();
-
         List<Task> children = list.get(0).Children();
 
         for(Task task : children){
-            if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
+            if (!((list.contains(task))||(hist.contains(task))))  aux.add(task);
         }
 
         System.out.print(list.get(0).getID());
@@ -20,9 +19,9 @@ public class WeakSort implements SortingAlgorithm {
 
         list.remove(0);
         aux.addAll(list);
-        if (!(aux.isEmpty())) aux.get(0).SortTasks(aux);
 
         if (!(aux.isEmpty())){
+            aux.get(0).SortTasks(aux);
             System.out.print(" - ");
             function (aux, hist);
         } else System.out.println();

@@ -14,7 +14,6 @@ public class WeakSort implements SortingAlgorithm {
             if (!((list.contains(task))||(hist.contains(task))))  aux.add(task);
         }
 
-        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         list.remove(0);
@@ -22,15 +21,15 @@ public class WeakSort implements SortingAlgorithm {
 
         if (!(aux.isEmpty())){
             aux.get(0).SortTasks(aux);
-            System.out.print(" - ");
             function (aux, hist);
-        } else System.out.println();
+        }
         return hist;
     }
 
     @Override
     public List<Task> sort(Graph graph) {
-        if (graph.Ancestors() == null) return null;
+        if ( graph.Ancestors().size() == 0) return null;
+
         ArrayList<Task> list = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();
 

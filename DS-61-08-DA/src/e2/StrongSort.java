@@ -11,11 +11,10 @@ public class StrongSort implements SortingAlgorithm {
 
         List<Task> children = list.get(0).Children();
 
-        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         for(Task task : children){
-            if ((!(list.contains(task)))&&(!(hist.contains(task)))&&(hist.containsAll(graph.Parents(task))))
+            if (!((list.contains(task))||(hist.contains(task)))&&(hist.containsAll(graph.Parents(task))))
                 aux.add(task);
         }
 
@@ -24,9 +23,8 @@ public class StrongSort implements SortingAlgorithm {
 
         if (!(aux.isEmpty())){
             aux.get(0).SortTasks(aux);
-            System.out.print(" - ");
             function (aux, graph, hist);
-        } else System.out.println();
+        }
         return hist;
     }
 
@@ -34,7 +32,7 @@ public class StrongSort implements SortingAlgorithm {
 
     @Override
     public List<Task> sort(Graph graph) {
-        if (graph.Ancestors() == null) return null;
+        if ( graph.Ancestors().size() == 0) return null;
 
         ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();

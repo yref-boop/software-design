@@ -10,6 +10,7 @@ public class Graph{
     public List<Task> getAlist() { return alist; }
 
     public void addTask (Task task) {
+        if (task == null) return;
         if(taskToPos (task) == -1){
             alist.add(task);
         }
@@ -17,7 +18,7 @@ public class Graph{
 
     private int taskToPos (Task task){
         for (Task tasks : alist)
-            if ((tasks != null) && (tasks.getID() == task.getID())) return alist.indexOf(tasks);
+            if (tasks.getID() == task.getID()) return alist.indexOf(tasks);
         return -1;
     }
 
@@ -46,15 +47,6 @@ public class Graph{
                     parents.add(tasks);
 
         return parents;
-    }
-
-    public void printGraph(){
-        for (Task tasks : alist){
-            System.out.print(tasks.getID() + " -> ");
-            for (Task child : tasks.Children())
-                System.out.print(child.getID() + " -> ");
-            System.out.println("");
-        }
     }
 
     public SortingAlgorithm getAlgorithm() { return algorithm; }

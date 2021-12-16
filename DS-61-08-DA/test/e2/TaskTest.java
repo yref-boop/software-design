@@ -1,6 +1,8 @@
 package e2;
 
 import org.junit.jupiter.api.Test;
+
+import java.awt.event.HierarchyBoundsAdapter;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,32 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TaskTest {
-
-    public Graph givenOrphanGraph(){
-        Graph graph = new Graph();
-
-        Task A = new Task ('A');
-        Task B = new Task ('B');
-        Task C = new Task ('C');
-        Task D = new Task ('D');
-        Task E = new Task ('E');
-        Task F = new Task ('F');
-        Task G = new Task ('G');
-        Task H = new Task ('H');
-        Task J = new Task ('J');
-
-        graph.addTask(A);
-        graph.addTask(B);
-        graph.addTask(C);
-        graph.addTask(D);
-        graph.addTask(E);
-        graph.addTask(F);
-        graph.addTask(G);
-        graph.addTask(H);
-        graph.addTask(J);
-
-        return graph;
-    }
 
     public Graph newGraph(){
             Graph graph = new Graph();
@@ -81,51 +57,58 @@ public class TaskTest {
             graph.addTask(H);
             graph.addTask(J);
 
-            graph.printGraph();
+            //check that they are not inserted twice:
+            graph.addTask(A);
+            graph.addTask(B);
+            graph.addTask(C);
+            graph.addTask(D);
+            graph.addTask(E);
+            graph.addTask(F);
+            graph.addTask(G);
+            graph.addTask(H);
+            graph.addTask(J);
+
+            //check that a null task does not get inserted:
+            Task N = null;
+            graph.addTask(N);
 
             return graph;
     }
 
-    @Test
-    public void EmptyGraphInitialization(){
-        Graph graph = new Graph();
-    }
-
-    @Test
-    public void orphanGraphInitialization(){
-        Graph graph = givenOrphanGraph();
-    }
-
-    @Test
-    public void graphInitialization(){
-        Graph graph = newGraph();
-    }
-
-    @Test
-    public void getAncestors(){
-        Graph graph = newGraph();
-        List<Task> ancestors = new ArrayList<>();
-    }
 
     @Test
     public void sortHierarchical(){
+        System.out.println("Hierarchical sort:");
         Graph graph = newGraph();
         graph.setAlgorithm(new HierarchicalSort());
         graph.sortGraph();
+        for (Task task :graph.sortGraph()){
+            System.out.print(task.getID() + " - ");
+        }
+        System.out.println();
     }
 
     @Test
     public void sortWeak(){
+        System.out.println("Weak dependency sort:");
         Graph graph = newGraph();
         graph.setAlgorithm(new WeakSort());
         graph.sortGraph();
+        for (Task task :graph.sortGraph()){
+            System.out.print(task.getID() + " - ");
+        }
+        System.out.println();
     }
 
     @Test
     public void sortStrong(){
+        System.out.println("Strong dependency sort:");
         Graph graph = newGraph();
         graph.setAlgorithm(new StrongSort());
-        graph.sortGraph();
+        for (Task task :graph.sortGraph()){
+            System.out.print(task.getID() + " - ");
+        }
+        System.out.println();
     }
 
     @Test
@@ -149,10 +132,19 @@ public class TaskTest {
 
         GraphInitializator ginny = new GraphInitializator();
         graph_in = ginny.readInput(input);
-        graph_in.printGraph();
         graph = newGraph();
-        graph.printGraph();
 
+    }
+
+    @Test
+    public void NullSorts(){
+        Graph graph = new Graph();
+        graph.setAlgorithm(new StrongSort());
+        assertNull(graph.sortGraph());
+        graph.setAlgorithm(new WeakSort());
+        assertNull(graph.sortGraph());
+        graph.setAlgorithm(new HierarchicalSort());
+        assertNull(graph.sortGraph());
     }
 
     @Test
@@ -177,8 +169,6 @@ public class TaskTest {
 
         GraphInitializator ginny = new GraphInitializator();
         graph = ginny.readInput(input);
-
-        graph.printGraph();
 
         Task A = new Task ('A');    //0
         Task B = new Task ('B');    //1
@@ -237,9 +227,12 @@ public class TaskTest {
 
         assertThrows(NullPointerException.class, graph::sortGraph);
 
-        graph.setAlgorithm(new StrongSort());
-        System.out.println(graph.getAlgorithm());
+        StrongSort ss = new StrongSort();
+
+        graph.setAlgorithm(ss);
         List<Task> StrongResult = graph.sortGraph();
+        assertEquals(ss, graph.getAlgorithm());
+
 
         int i = 0;
         boolean sbool = true;
@@ -252,9 +245,12 @@ public class TaskTest {
         }
         assertTrue(sbool);
 
-        graph.setAlgorithm(new WeakSort());
-        System.out.println(graph.getAlgorithm());
+
+        WeakSort ws = new WeakSort();
+
+        graph.setAlgorithm(ws);
         List<Task> WeakResult = graph.sortGraph();
+        assertEquals(ws, graph.getAlgorithm());
 
         int j = 0;
         boolean wbool = true;
@@ -267,9 +263,12 @@ public class TaskTest {
         }
         assertTrue(wbool);
 
-        graph.setAlgorithm(new HierarchicalSort());
-        System.out.println(graph.getAlgorithm());
+
+        HierarchicalSort hs = new HierarchicalSort();
+
+        graph.setAlgorithm(hs);
         List<Task> HierarchyResult = graph.sortGraph();
+        assertEquals(hs, graph.getAlgorithm());
 
         int k = 0;
         boolean hbool = true;

@@ -12,27 +12,25 @@ public class HierarchicalSort implements SortingAlgorithm {
         List<Task> children = list.get(0).Children();
 
         for(Task task : children){
-            if ((!(list.contains(task)))&&(!(hist.contains(task))))  aux.add(task);
+            if (!((list.contains(task))||(hist.contains(task))))  aux.add(task);
         }
 
         if (!(aux.isEmpty())) aux.get(0).SortTasks(aux);
 
-        System.out.print(list.get(0).getID());
         hist.add(list.get(0));
 
         list.remove(0);
         list.addAll(aux);
 
         if (!(list.isEmpty())){
-            System.out.print(" - ");
             function (list, hist);
-        } else System.out.println();
+        }
         return hist;
     }
 
     @Override
     public List<Task> sort(Graph graph) {
-        if (graph.Ancestors() == null) return null;
+        if ( graph.Ancestors().size() == 0) return null;
 
         ArrayList<Task> list = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();

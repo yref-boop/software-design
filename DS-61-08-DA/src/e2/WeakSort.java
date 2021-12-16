@@ -30,9 +30,10 @@ public class WeakSort implements SortingAlgorithm {
 
     @Override
     public List<Task> sort(Graph graph) {
-        ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
-        ArrayList<Task> done = new ArrayList<>();
+        if (graph.Ancestors() == null) return null;
+        ArrayList<Task> list = new ArrayList<>(graph.Ancestors());
+        ArrayList<Task> hist = new ArrayList<>();
 
-        return function(sortlist, done);
+        return function(list, hist);
     }
 }

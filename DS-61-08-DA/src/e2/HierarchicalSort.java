@@ -32,9 +32,11 @@ public class HierarchicalSort implements SortingAlgorithm {
 
     @Override
     public List<Task> sort(Graph graph) {
-        ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
+        if (graph.Ancestors() == null) return null;
+
+        ArrayList<Task> list = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();
 
-        return function(sortlist, hist);
+        return function(list, hist);
     }
 }

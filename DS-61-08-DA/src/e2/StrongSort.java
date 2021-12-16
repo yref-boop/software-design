@@ -21,9 +21,9 @@ public class StrongSort implements SortingAlgorithm {
 
         list.remove(0);
         aux.addAll(list);
-        if (!(aux.isEmpty())) aux.get(0).SortTasks(aux);
 
         if (!(aux.isEmpty())){
+            aux.get(0).SortTasks(aux);
             System.out.print(" - ");
             function (aux, graph, hist);
         } else System.out.println();
@@ -34,6 +34,8 @@ public class StrongSort implements SortingAlgorithm {
 
     @Override
     public List<Task> sort(Graph graph) {
+        if (graph.Ancestors() == null) return null;
+
         ArrayList<Task> sortlist = new ArrayList<>(graph.Ancestors());
         ArrayList<Task> hist = new ArrayList<>();
 

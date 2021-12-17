@@ -9,7 +9,7 @@ public class TicketManager {
     enum connector {OR, AND, Null}
 
     private final ArrayList<Ticket> tickets = new ArrayList<>();
-    private final ArrayList<Object> queue = new ArrayList<>();
+    private final ArrayList<ObjectList<?>> queue = new ArrayList<>();
 
     public void addTicket (String origin, String destination, int price, String date) {
         Ticket t = new Ticket();
@@ -56,15 +56,35 @@ public class TicketManager {
         queue.add(d);
     }
 
+
+    public boolean shouldBeDeleted(Class<?> c, Ticket t) {
+        for (int i = queue.size() - 1; i >= 0; i --) {
+            if (queue.get(i).getClass() == c) {
+                if (queue.get(i - 1) == null || !queue.get(i - 1).isOperator()) return false;
+                ObjectList<?> connector = queue.get(i - 1);
+                return connector.operate(t, queue.size(), queue, false);
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Ticket> search() {
         ArrayList<Ticket> selection = tickets;
-        for (int i = 0; i < selection.size(); i++) {
+        boolean delete = false;
+
+        for (int i = selection.size() - 1; i >= 0; i --) {
+            delete = shouldBeDeleted(Origin.class, selection.get(i));
+            if (delete) selection.remove(i);
+        }
+
+
+        /*for (int i = 0; i < selection.size(); i++) {
             Ticket o = selection.get(i);
             new Origin().filter(o, selection, queue);
             new Destination().filter(o, selection, queue);
             new Price().filter(o, selection, queue);
             new Date().filter(o, selection, queue);
-        }
+        }*/
         return selection;
     }
 

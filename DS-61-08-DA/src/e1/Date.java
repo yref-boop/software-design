@@ -3,14 +3,16 @@ package e1;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Date implements Characteristic<Date> {
+public class Date extends ObjectList<Date> {
     public String date;
 
     @Override
-    public boolean meetsCondition(Date p, Ticket ticket) {
-        return Objects.equals(p.date, ticket.date);
+    public boolean meetsCondition(int i, ArrayList<ObjectList<?>> queue, Ticket ticket) {
+        Date d = (Date) queue.get(i);
+        return Objects.equals(d.date, ticket.date);
     }
 
+    /*
     @Override
     public void filter(Ticket element, ArrayList<Ticket> selection, ArrayList<Object> queue) {
         boolean keep = true;
@@ -22,4 +24,5 @@ public class Date implements Characteristic<Date> {
         }
         if (!keep) selection.remove(element);
     }
+    */
 }

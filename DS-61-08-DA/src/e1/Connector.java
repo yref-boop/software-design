@@ -15,7 +15,6 @@ public abstract class Connector extends ObjectList {
     }
 
     public boolean notAnymoreClassInList(int i, ArrayList<ObjectList> list, Class<?> c) {
-        //if (i < 2) return false;
         for (int j = 0; j < i + 1; j++)
             if (list.get(j).getClass() == c) return false;
         return true;

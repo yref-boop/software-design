@@ -81,7 +81,6 @@ public class TicketManager {
             if (delete) selection.remove(i);
             delete = false;
         }
-
         return selection;
     }
 

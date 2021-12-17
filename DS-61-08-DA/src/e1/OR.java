@@ -11,7 +11,7 @@ public class OR extends Connector {
         for (; i >= 0; i--) {
             ObjectList o = queue.get(i);
             if (o.getClass() == queue.get(i).getClass()) {
-                if (i == 0 || queue.get(i - 1).isNotOperator() || notAnymoreClassInList(i, queue, o.getClass()))
+                if (i == 0 || notAnymoreClassInList(i, queue, o.getClass()))
                     return o.doesNotMeetCondition(i, queue, t);
                 ObjectList connector = queue.get(i - 1);
                 return connector.operate(t, next(i - 1, queue, o.getClass()), queue, o.doesNotMeetCondition(i, queue, t));

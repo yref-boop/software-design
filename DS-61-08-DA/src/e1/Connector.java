@@ -2,15 +2,27 @@ package e1;
 
 import java.util.ArrayList;
 
-public abstract class Connector extends ObjectList<Connector> {
+public abstract class Connector extends ObjectList {
 
     @Override
-    public boolean meetsCondition(int i, ArrayList<ObjectList<?>> list, Ticket ticket) {
-        return false;
+    public boolean doesNotMeetCondition(int i, ArrayList<ObjectList> list, Ticket ticket) {
+        return true;
     }
 
     @Override
-    public boolean isOperator() {
-        return true;
+    public boolean isNotOperator() {
+        return false;
+    }
+
+    public boolean notAnymoreClassInList(int i, ArrayList<ObjectList> list, Class<?> c) {
+        for (int j = 0; j < i; j++)
+            if (list.get(j).getClass() == c) return true;
+        return false;
+    }
+
+    public int next(int i, ArrayList<ObjectList> list, Class<?> c) {
+        for (int j = i; j >= 0; j--)
+            if (list.get(j).getClass() == c) return j;
+        return -1;
     }
 }

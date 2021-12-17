@@ -3,13 +3,13 @@ package e1;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Date extends ObjectList<Date> {
+public class Date extends ObjectList {
     public String date;
 
     @Override
-    public boolean meetsCondition(int i, ArrayList<ObjectList<?>> queue, Ticket ticket) {
+    public boolean doesNotMeetCondition(int i, ArrayList<ObjectList> queue, Ticket ticket) {
         Date d = (Date) queue.get(i);
-        return Objects.equals(d.date, ticket.date);
+        return !Objects.equals(d.date, ticket.date);
     }
 
     /*

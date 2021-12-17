@@ -9,7 +9,7 @@ public class TicketManager {
     enum connector {OR, AND, Null}
 
     private final ArrayList<Ticket> tickets = new ArrayList<>();
-    private final ArrayList<ObjectList<?>> queue = new ArrayList<>();
+    private final ArrayList<ObjectList> queue = new ArrayList<>();
 
     public void addTicket (String origin, String destination, int price, String date) {
         Ticket t = new Ticket();
@@ -61,8 +61,8 @@ public class TicketManager {
         if (delete) return true;
         for (int i = queue.size() - 1; i >= 0; i --) {
             if (queue.get(i).getClass() == c) {
-                if (i == 0) return !queue.get(i).meetsCondition(i, queue, t);
-                ObjectList<?> connector = queue.get(i - 1);
+                if (i == 0 || queue.get(i - 1).isNotOperator()) return queue.get(i).doesNotMeetCondition(i, queue, t);
+                ObjectList connector = queue.get(i - 1);
                 return connector.operate(t, i, queue, null);
             }
         }
@@ -109,7 +109,7 @@ public class TicketManager {
     public void addCriteria(connector connector, type type, condition condition, int price)     { addCriteria(connector, condition, price, type, ""); }
 
     private void addCriteria (connector c, condition condition, int price, type type, String content) {
-        //if ((c == connector.Null) && (queue.size() > 0)) c = connector.OR;
+        if ((c == connector.Null) && (queue.size() > 0)) c = connector.OR;
         if (type == TicketManager.type.price && price <= 0) throw new IllegalArgumentException("Price must be positive");
         switch (type) {
             case origin -> addOrigin(c, content);

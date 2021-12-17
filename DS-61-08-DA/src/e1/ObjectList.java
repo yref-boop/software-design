@@ -10,7 +10,7 @@ public abstract class ObjectList <type> extends TicketManager {
         return false;
     }
 
-    public boolean operate(Ticket t, int i, ArrayList<ObjectList<?>> queue, boolean right) {
+    public boolean operate(Ticket t, int i, ArrayList<ObjectList<?>> queue, Boolean right) {
         return false;
     }
 }

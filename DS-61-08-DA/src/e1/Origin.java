@@ -10,6 +10,6 @@ public class Origin extends ObjectList<Origin> {
     @Override
     public boolean meetsCondition(int i, ArrayList<ObjectList<?>> queue, Ticket ticket) {
         Origin o = (Origin) queue.get(i);
-        return Objects.equals(o.origin, ticket.date);
+        return Objects.equals(o.origin, ticket.origin);
     }
 }

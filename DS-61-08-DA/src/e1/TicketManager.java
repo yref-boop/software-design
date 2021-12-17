@@ -57,12 +57,13 @@ public class TicketManager {
     }
 
 
-    public boolean shouldBeDeleted(Class<?> c, Ticket t) {
+    public boolean shouldBeDeleted(Class<?> c, Ticket t, boolean delete) {
+        if (delete) return true;
         for (int i = queue.size() - 1; i >= 0; i --) {
             if (queue.get(i).getClass() == c) {
-                if (queue.get(i - 1) == null || !queue.get(i - 1).isOperator()) return false;
+                if (i == 0) return !queue.get(i).meetsCondition(i, queue, t);
                 ObjectList<?> connector = queue.get(i - 1);
-                return connector.operate(t, queue.size(), queue, false);
+                return connector.operate(t, i, queue, null);
             }
         }
         return false;
@@ -73,8 +74,12 @@ public class TicketManager {
         boolean delete = false;
 
         for (int i = selection.size() - 1; i >= 0; i --) {
-            delete = shouldBeDeleted(Origin.class, selection.get(i));
+            delete = shouldBeDeleted(Origin.class, selection.get(i), delete);
+            delete = shouldBeDeleted(Destination.class, selection.get(i), delete);
+            delete = shouldBeDeleted(Price.class, selection.get(i), delete);
+            delete = shouldBeDeleted(Date.class, selection.get(i), delete);
             if (delete) selection.remove(i);
+            delete = false;
         }
 
 

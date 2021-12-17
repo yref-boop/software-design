@@ -82,14 +82,6 @@ public class TicketManager {
             delete = false;
         }
 
-
-        /*for (int i = 0; i < selection.size(); i++) {
-            Ticket o = selection.get(i);
-            new Origin().filter(o, selection, queue);
-            new Destination().filter(o, selection, queue);
-            new Price().filter(o, selection, queue);
-            new Date().filter(o, selection, queue);
-        }*/
         return selection;
     }
 
